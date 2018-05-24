@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>datagrid 列拖动 列拖拽</title>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<!--<script src="col_drag.js"></script>-->
+	<style>
+		.indicator{
+			position:absolute;
+			font-size:9px;
+			width:10px;
+			height:10px;
+			display:none;
+			color:red;
+		}
+		.rowStyleRed{
+			background: darkred;
+			color:#fff;
+		}
+		.datagrid-header-inner .datagrid-cell{
+			background-color: greenyellow;
+		}
+	</style>
+</head>
+<body>
+	<table id="dg"></table>
+</body>
+<script>
+
+	var cols = [
+		{field:'productid',title:'productid',width:100},
+		{field:'productname',title:'productname',width:100},
+		{field:'unitcost',title:'unitcost',width:100,align:'right'}
+	];
+
+	function drag() {
+		var indicator = $('<div class="indicator">↓</div>').appendTo('body');
+		console.log($('.datagrid-header-inner .datagrid-cell'));
+		$('.datagrid-header-inner .datagrid-cell').draggable({
+			revert: true,
+			proxy: null
+		}).droppable({
+//			accept: '.datagrid-header-inner .datagrid-cell',
+			onDragOver:function(e,source){
+				indicator.css({
+					display:'block',
+					left:$(this).offset().left-10,
+					top:$(this).offset().top/1.3
+				});
+			},
+			onDragLeave:function(e,source){
+				indicator.hide();
+			},
+			onDrop: function (e, source) {
+				console.log(this)
+				//取得拖动源的html值
+				var src = $(e.currentTarget.innerHTML).html();
+				//取得拖动目标的html值
+				var sou = $(source.innerHTML).html();
+				var tempcolsrc;//拖动后源和目标列交换
+				var tempcolsou;
+				var tempcols=[];
+				for (var i = 0; i < cols.length; i++) {
+					if (cols[i].title == sou) {
+						tempcolsrc = cols[i];//循环读一遍列把源和目标列都记下来
+					}
+					else if (cols[i].title == src) {
+						tempcolsou = cols[i];
+					}
+				}
+				for (var i = 0; i < cols.length; i++) {
+					//再循环一遍，把源和目标的列对换
+					var col = {
+						field: cols[i].field,
+						title: cols[i].title,
+						align: cols[i].align,
+						width: cols[i].width
+					};
+					if (cols[i].title == sou) {
+						col = tempcolsou;
+					}
+					else if (cols[i].title == src) {
+						col = tempcolsrc;
+					}
+					tempcols.push(col);
+				}
+				cols = tempcols;
+				//1秒后执行重绑定datagrid操作。可能是revert需要时间,这边如果没有做延时就直接重绑 就会出错。
+				//我目前的水平就想到这个笨办法,各位如果有好的想法建议可以提出来讨论下。
+				timeid = setTimeout("init()", 1000);
+			}
+		});
+	}
+
+	//初始化表格
+	function init(){
+		$('#dg').datagrid({
+			url:'datagrid_data1.json',
+			columns:[cols]
+		});
+	}
+
+	$(document).ready(function(){
+
+		init();
+		drag();
+
+	});
+</script>
+</html>

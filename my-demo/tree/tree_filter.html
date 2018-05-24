@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+</head>
+<body>
+<ul id="tree"></ul>
+<script>
+
+	$(function(){
+		$("#tree").tree({
+			url:"../../jquery-easyui-1.5/demo/tree/tree_data1.json",
+			method:"GET",
+			loader:function(data){
+				console.log(data)
+				return data;
+			}
+		});
+	});
+</script>
+</body>
+</html>

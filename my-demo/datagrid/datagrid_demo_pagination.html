@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>datagrid</title>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<style>
+		.rowStyleRed{
+			background: darkred;
+			color:#fff;
+		}
+	</style>
+</head>
+<body>
+	<table id="dg"
+		   title="table title文字"
+			class="easyui-datagrid"
+		   data-options="url:'datagrid_data1.json',
+		   				method:'get',
+		   				rownumbers:true,
+		   				singleSelect:true,
+		   				pagination:true
+		   				">
+		<thead>
+			<tr>
+				<th data-options="field:'itemid'">Status</th>
+				<th data-options="field:'productid'">名称</th>
+				<th data-options="field:'listprice',width:100,align:'right'">价格</th>
+			</tr>
+		</thead>
+	</table>
+
+	<button id="searchBtn1">使用一些参数查询数据</button>
+</body>
+<script>
+	var editIndex = undefined;
+	$(document).ready(function(){
+
+	});
+
+
+		//var pager = $('#dg').datagrid().datagrid('getPager');	// get the pager of datagrid
+
+
+</script>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<title></title>
+</head>
+<body>
+<p>2.html</p>
+<p id="title"></p>
+<script>
+	$(document).ready(function(){
+
+		//得到请求参数
+		var queryParams = $("#center").panel("options").queryParams;
+		console.log(queryParams);
+	});
+</script>
+</body>
+</html>

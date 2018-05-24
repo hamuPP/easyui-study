@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<script src="../jquery-easyui-1.5/src/easyloader.js"></script>
+</head>
+<style>
+	body{
+		padding:20px;
+	}
+	.my-drag-demo{
+		width: 50px;
+		height: 50px;
+		background: #333;
+		margin:10px;
+	}
+	#d1,#d3{
+		margin: 10px;
+		background: #123;
+		width: 30px;
+		height: 30px;
+	}
+</style>
+<body>
+<h4>parser</h4>
+<h4>easyloader</h4>
+<h4>draggable</h4>
+<div class="easyui-draggable my-drag-demo"></div>
+<div class="easyui-draggable my-drag-demo"
+		data-options="handle:'#title',revert:true">
+	<div id="title">title</div>
+</div>
+<h4>droppable 放置</h4>
+<div id="dd" class="easyui-droppable"
+	 data-options="accept:'#d1,#d3'"
+	 style="width:100px;height:100px;">
+	<div id="d1"></div>
+	<div id="d3"></div>
+</div>
+<h4>调整大小 resizable</h4>
+<div id="rr" class="easyui-resizable"
+	 data-options="maxWidth:600,maxHeight:400,edge:20,onStopResize:resizeOver,onResize:resizing"
+	 style="width:100px;height:100px;border:1px solid #ccc;">
+
+</div>
+
+<h4>linkbutton</h4>
+<a id="" href="http://www.baidu.com" class="easyui-linkbutton"
+   data-options="iconCls:'icon-search'">easyui
+</a>
+<a id="btnAdd" href="#" class="easyui-linkbutton"
+   data-options="iconCls:'icon-add',plain:true">easyui add
+</a>
+<a id="btn" href="/nofile.html">通过JS创建linkbutton</a>
+<script>
+	$("#btn").linkbutton({
+		iconCls: "icon-clear"
+	});
+</script>
+
+<h4>pagination</h4>
+
+<div id="papination1" class="easyui-pagination"
+	 data-options="total:2000,pageSize:10"
+	 style="background:#efefef;border:1px solid #ccc;">
+</div>
+
+<h4>searchBox 搜索框</h4>
+
+<input class="easyui-searchbox" type="text">
+
+<br>
+
+<input id="ss"
+		class="easyui-searchbox" style="width:400px;margin:10px;"
+	   data-options="searcher:qq,prompt:'Please Input Value666',menu:'#mm'">
+
+<div id="mm" style="width:120px">
+	<div data-options="name:'all',iconCls:'icon-ok'">All News</div>
+	<div data-options="name:'sports'">Sports News</div>
+	<div data-options="name:'分类3',selected:true">分类3</div>
+</div>
+<button id="btn3">获取菜单项</button>
+<button id="btn4">获取搜索值</button>
+
+<script type="text/javascript">
+	function qq(value,name){
+		alert(value+":"+name)
+	}
+
+	$("#btn3").click(function(){
+		// 获取菜单项
+		var m = $("#ss").searchbox("menu");
+		console.log(m);
+		//查找菜单项
+		var item = m.menu("findItem","分类3");
+		console.log(item);
+		// 更改菜单项图标
+		m.menu('setIcon', {
+			target: item.target,
+			iconCls: 'icon-save'
+		});
+	});
+
+	$("#btn4").click(function(){
+		var value = $("#ss").searchbox("getValue");
+		console.log(value);
+		$("#ss").searchbox("setValue","new val");
+	});
+</script>
+
+<h4>textBox 文本框</h4>
+<input class="easyui-textbox"
+	   data-options="iconCls:'icon-search',iconAlign:'left'"
+	   style="width:300px">
+<br>
+<input class="easyui-textbox"
+	   data-options="iconCls:'icon-redo',iconAlign:'left',
+	   buttonText:'按钮文字',disabled:true"
+	   style="width:300px;margin:25px;">
+<div style="margin:5px 0;padding:8px 3px;outline:1px solid #333;">
+	<input class="easyui-textbox"
+		   data-options="iconCls:'icon-redo',iconAlign:'left',
+	   buttonText:'readonly',readonly:true"
+		   style="width:300px;margin:25px;">
+</div>
+
+<div style="margin:5px 0;padding:8px 3px;outline:1px solid #333;">
+	为icons设置图标和点击事件
+	<input class="easyui-textbox"
+		   data-options="buttonText:'多得多',iconAlign:'left',
+		   icons:[{iconCls:'icon-add',handler: iconAdd}]"
+		   style="width:300px;margin:25px;">
+</div>
+
+<input type="text" id="tb">
+<script>
+	$("#tb").textbox({
+		buttonText:'Search',
+		iconCls:'icon-man',
+		iconAlign:'left'
+	});
+</script>
+<script>
+	$.parser.onComplete = function(){
+		console.log("解析完成");
+	};
+
+	//加载ui模块
+	easyloader.base = '../jquery-easyui-1.5/'; // 设置 easyui 基础目录
+	easyloader.load('messager', function(){ // 加载指定模块
+//		$.messager.alert('Title', 'load ok');
+	});
+
+	//加载JS脚本
+
+
+	function resizeOver(){
+		console.log("resize over");
+		console.log(this);
+	}
+
+	function resizing(){
+		console.log("resizing... ");
+		return false;
+	}
+
+	$("#rr").resizable("disable");
+
+	//textbox icon点击事件
+	function iconAdd(e){
+		console.log(e);
+		console.log(e.target);//获得图标
+		console.log(e.data.target);//获得文本框，注意这是不是jq对象，所以要用方法的话，记得先转成jq对象
+		$(e.data.target).textbox("setValue","新设值");
+	}
+
+</script>
+</body>
+</html>

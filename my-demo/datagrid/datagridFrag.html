@@ -1,0 +1,21 @@
+<div id="listLayout" class="easyui-layout" data-options="fit:true">
+	<div data-options="region:'west',title:'企业组织',split:true" style="width:150px;">
+		<ul id="listNavTree" class="easyui-tree"
+			data-options="url:'../../../localData/businessOrganization.json'">
+		</ul>
+	</div>
+	<div id="listCenter" data-options="region:'center'">
+		<table id="listDataGrid">
+
+		</table>
+	</div>
+</div>
+<script>
+	$('#listDataGrid').datagrid({
+		columns:[[
+			{field:'codeXXX',title:'CodeXXX'},
+			{field:'name',title:'Name'},
+			{field:'price',title:'Price'}
+		]]
+	});
+</script>

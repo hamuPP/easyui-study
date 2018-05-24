@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>portal&panel</title>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<script src="../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<script src="../jquery-easyui-1.5/jquery-easyui-portal/jquery.portal.js"></script>
+	<style>
+		html,body{
+			margin: 0;
+			padding: 0;
+		}
+		.pp{
+			width: 96%;
+			margin:0 2%;
+			outline:1px solid green;
+		}
+		.portal-column{
+			outline:1px solid #aa2a15;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="preferenceMenu" class="easyui-menu" data-options="noline:true" style="width:150px;">
+		<div>显示模式</div>
+		<div>紧凑</div>
+		<div>宽松</div>
+		<div>每页显示行数</div>
+		<div>10</div>
+		<div>15</div>
+		<div>20</div>
+	</div>
+
+</body>
+<script>
+	$(document).ready(function(){
+
+		$("#preferenceMenu").menu("show",{
+			left:300,
+			top:100
+		});
+
+	});
+</script>
+</html>

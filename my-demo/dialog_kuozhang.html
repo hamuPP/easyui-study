@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+</head>
+<style>
+	/*body{*/
+		/*padding:20px;*/
+	/*}*/
+
+	/*.wrap{*/
+		/*position: absolute;*/
+		/*bottom:100px;*/
+		/*left:0;*/
+		/*width: 100%;*/
+	/*}*/
+	/*.btn{*/
+		/*position: absolute;*/
+		/*bottom:10px;*/
+		/*left:200px;*/
+		/*width: 300px;*/
+		/*height: 50px;*/
+	/*}*/
+</style>
+<body>
+<div class="wrap">
+	<div id="dd" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;"
+		 data-options="iconCls:'icon-save',resizable:true,modal:true">
+		Dialog Content.
+	</div>
+</div>
+
+
+<button class="btn">移动</button>
+
+<script>
+$(document).ready(function(){
+
+	$.extend($.fn.dialog.methods, {
+		mymove: function(jq, newposition){
+			console.log($(this));
+			//console.log($(this)[0].dialog("options"));
+			return jq.each(function(){
+				console.log($(this));
+				$(this).dialog('move', newposition);
+			});
+		}
+	});
+
+	$('#dd').dialog('mymove', {
+		left: 700,
+		top: 100
+	});
+});
+
+</script>
+
+</body>
+</html>

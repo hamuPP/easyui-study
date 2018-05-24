@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+</head>
+<body>
+
+<div id="cc" class="easyui-layout" style="width:600px;height:400px;">
+	<div data-options="region:'center',title:'center title'"
+		 style="padding:5px;background:#eee;" id="center"></div>
+	<div data-options="region:'south',title:'下 title'"  style="height:79px;">
+		<button id="add" type="button">加载内容</button>
+	</div>
+
+</div>
+
+<script>
+	$("#add").on("click", function(){
+		var centerPanel = $("#center");
+
+		centerPanel.panel({
+			href:"2.html",
+			queryParams:{
+				"guid":"cc1"
+			}
+		});
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Basic FileBox - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../demo.css">
+	<script type="text/javascript" src="../../jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>Basic FileBox</h2>
+	<p>The filebox component represents a file field of the forms.</p>
+	<div style="margin:20px 0;"></div>
+	<div class="easyui-panel" title="Upload File" style="width:100%;max-width:400px;padding:30px 60px;">
+		<form id="ff">
+
+
+		<div style="margin-bottom:20px">
+			<input class="easyui-validatebox" id="vb1" data-options="required:true"/>
+			<input class="easyui-textbox" id="tb1" label="Name:" labelPosition="top" style="width:100%"
+					data-options="required:true">
+		</div>
+		<div style="margin-bottom:20px">
+			<input class="easyui-filebox" id="fb1" label="File1:" labelPosition="top" data-options="prompt:'Choose a file...',required:true" style="width:100%">
+		</div>
+		<div style="margin-bottom:40px">
+			<input class="easyui-filebox" label="File2:" labelPosition="top" data-options="prompt:'Choose another file...'" style="width:100%">
+		</div>
+		</form>
+		<div>
+			<a href="#" class="easyui-linkbutton" style="width:100%">Upload</a>
+		</div>
+	</div>
+
+	<button id="btnT1">验证text1</button>
+	<button id="btnF1">验证file1</button>
+    <button id="btnF1Val">得到file1</button>
+
+	<script>
+		$("#btnT1").click(function(){
+			console.log($("#tb1").textbox("validate"));
+			console.log($("#tb1").textbox("isValid"));
+		});
+
+
+		$("#btnF1").click(function(){
+			console.log($("#ff").form("validate"));
+		});
+
+        $("#btnF1Val").click(function(){
+           var val = $("#fb1").filebox("getValue");
+
+           var ss = $("#ff").serialize();
+           debugger
+
+           console.log(val);
+        });
+	</script>
+</body>
+</html>

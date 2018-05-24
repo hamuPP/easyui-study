@@ -1,0 +1,188 @@
+<!--新增应用注册-->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/icon.css"/>
+	<link rel="stylesheet" href="common.css"/>
+	<link rel="stylesheet" href="addPublicAccount.css"/>
+	<script src="../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<title>stepanimate与easyui兼容问题</title>
+	<style>
+
+	</style>
+</head>
+<body >
+<div style="height:100%;">
+
+	<div class="step-body easyui-layout" id="mySteps" data-options="fit:true">
+		<div data-options="region:'north',border:false" style="background: rgba(239, 239, 239, 0.37);padding:0;height: 180px;">
+			<div class="step-header" style="width:80%">
+				<ul>
+					<li><p>填写账号信息</p></li>
+					<li><p>分配业务权限</p></li>
+					<li><p>关联企业账号</p></li>
+				</ul>
+			</div>
+			<div class="step-zhushi">
+				<p class="step-beizhu">第一步：请填写公用帐号的基本信息</p>
+				<p class="step-beizhu">
+					第二步：您可选择为该公用帐号分配应用系统角色权限。
+				</p>
+				<p class="step-beizhu">
+					第三步：通过关联用户的企业帐号，将该公用帐号分配给指定人员使用。
+				</p>
+			</div>
+			<div>
+				<button class="preNextBtn " id="preBtn" style="right: 160px;display: none" >上一步</button>
+				<button class="preNextBtn " id="nextBtn" >下一步</button>
+			</div>
+		</div>
+		<div data-options="region:'center',border:false" class="step-content">
+
+			<div class="step-list step-one" id="stepOne" style="width: 100%;">
+				<div class="easyui-layout" fit="true">
+					<div data-options="region:'east',split:true" title="East" style="width:100px;"></div>
+					<div data-options="region:'west',split:true" title="West" style="width:100px;"></div>
+					<div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
+						<table class="easyui-datagrid"
+							   data-options="url:'datagrid_data1.json',method:'get',border:false,singleSelect:true,fit:true,fitColumns:true">
+							<thead>
+							<tr>
+								<th data-options="field:'itemid'" width="80">Item ID</th>
+								<th data-options="field:'productid'" width="100">Product ID</th>
+								<th data-options="field:'listprice',align:'right'" width="80">List Price</th>
+								<th data-options="field:'unitcost',align:'right'" width="80">Unit Cost</th>
+								<th data-options="field:'attr1'" width="150">Attribute</th>
+								<th data-options="field:'status',align:'center'" width="60">Status</th>
+							</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="step-list step-two" id="stepTwo" style="width: 100%;">
+				<div class="easyui-layout"  style="width:100%;height:100%;">
+					<div data-options="region:'east',split:true" title="East" style="width:100px;"></div>
+					<div data-options="region:'west',split:true" title="West" style="width:100px;"></div>
+					<div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
+						<table class="easyui-datagrid"
+							   data-options="url:'datagrid_data1.json',method:'get',border:false,singleSelect:true,fit:true,fitColumns:true">
+							<thead>
+							<tr>
+								<th data-options="field:'itemid'" width="80">Item ID</th>
+								<th data-options="field:'productid'" width="100">Product ID</th>
+								<th data-options="field:'listprice',align:'right'" width="80">List Price</th>
+								<th data-options="field:'unitcost',align:'right'" width="80">Unit Cost</th>
+								<th data-options="field:'attr1'" width="150">Attribute</th>
+								<th data-options="field:'status',align:'center'" width="60">Status</th>
+							</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+
+
+
+				<!--<div class="left">-->
+					<!--<div class="slick_t_div" style="width:100%;">-->
+						<!--<div class="st_ti">-->
+							<!--<span>业务应用</span>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<ul id="businessAppTree" class="easyui-tree"></ul>-->
+				<!--</div>-->
+				<!--<div class="right flex-vertical">-->
+					<!--<div class="slick_t_div" style="width:100%;">-->
+						<!--<div class="st_ti" style="overflow: hidden;">-->
+							<!--<span style="border-left: none;">已选角色</span>-->
+							<!--<a href="javascript:;" class="comm_float_right"-->
+							   <!--style="margin: 10px 30px 0 0;color: #000;font-size: 12px">-->
+								<!--<i class="fa fa-trash-o fa-lg" id="roleDelete"></i>-->
+							<!--</a>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="item">-->
+						<!--<table class="easyui-datagrid" id="selectRoleDataGrid" data-options="border:false,-->
+					   <!--fit:true,striped:true,scrollbarSize:0,fitColumns:true">-->
+						<!--</table>-->
+					<!--</div>-->
+
+				<!--</div>-->
+
+				<!--<div class="main flex-vertical">-->
+					<!--<div class="slick_t_div" style="width:100%;">-->
+						<!--<div class="st_ti" style="overflow: hidden;">-->
+							<!--<span>角色信息</span>-->
+							<!--<a href="javascript:;" class="flex-search-box comm_float_right" style="margin: 3px 20px 0 0;">-->
+							<!--</a>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="item">-->
+						<!--<table class="easyui-datagrid" id="roleDataGrid"  data-options="border:false,-->
+					   <!--fit:true,striped:true,scrollbarSize:0,fitColumns:true">-->
+						<!--</table>-->
+					<!--</div>-->
+				<!--</div>-->
+			</div>
+
+			<div class="step-list step-three">
+				<div class="left">
+					<div class="slick_t_div" style="width:100%;">
+						<div class="st_ti">
+							<span>企业组织</span>
+						</div>
+					</div>
+					<ul id="enterpriseTree" class="easyui-tree"></ul>
+				</div>
+				<div class="right flex-vertical">
+					<div class="slick_t_div" style="width:100%;">
+						<div class="st_ti" style="overflow: hidden;">
+							<span style="border-left: none;">已选</span>
+							<a href="javascript:;" class="comm_float_right"
+							   style="margin: 10px 30px 0 0;color: #000;font-size: 12px">
+								<!--<i class="fa fa-trash-o fa-lg" id="roleDelete"></i>-->
+							</a>
+						</div>
+					</div>
+					<div class="item">
+						<table class="easyui-datagrid" id="selectAccountDataGrid">
+							<thead>
+							<tr>
+								<th data-options="field:'ck',checkbox:true"></th>
+								<th data-options="field:'id'">id</th>
+								<th data-options="field:'acount'">账号</th>
+								<th data-options="field:'userName'">姓名</th>
+							</tr>
+							</thead>
+						</table>
+					</div>
+
+				</div>
+				<div class="main flex-vertical">
+					<div class="slick_t_div" style="width:100%;">
+						<div class="st_ti" style="overflow: hidden;">
+							<span>企业账号信息</span>
+							<a href="javascript:;" class="flex-search-box comm_float_right" style="margin: 3px 20px 0 0;">
+							</a>
+						</div>
+					</div>
+					<div class="item">
+						<table id="eAccountDataGrid">
+						</table>
+						<!--<table class="easyui-datagrid" id="eAccountDataGrid"  data-options="border:false,-->
+						<!--fit:true,striped:true,scrollbarSize:0,fitColumns:true">-->
+						<!--</table>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="stepanimate.js"></script>
+<script src="addPublicAccount.js"></script>
+</body>
+</html>

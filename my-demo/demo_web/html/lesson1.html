@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../../../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../../../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../../../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<link rel="stylesheet" href="../css/mystyle.css">
+</head>
+<body>
+	<div id="cc" class="easyui-layout my-layout" data-options="fit:false">
+		<div data-options="region:'north'" style="height:100px;">
+			<ul class="header-nav">
+				<li class="item"><a href="#">登录</a></li>
+				<li class="item"><a href="#">注册</a></li>
+				<li class="item"><a href="#">首页</a></li>
+			</ul>
+		</div>
+		<div data-options="region:'south',title:'South Title',split:true,href:'copyright.html'" style="height:100px;"></div>
+		<div data-options="region:'east',iconCls:'icon-reload',title:'East',split:true" style="width:100px;"></div>
+		<div data-options="region:'west',title:'West',split:true" id="westPanel" style="width:100px;">
+			<ul>
+				<li>数据表格 DataGrid</li>
+				<li>表单 Form</li>
+				<li>时钟clock</li>
+			</ul>
+		</div>
+		<div data-options="region:'center',title:'center title'" style="padding:5px;background:#eee;"></div>
+	</div>
+	<div class="operate-panel" >
+		<h4>操作面板</h4>
+		<button id="addEast">添加东侧区域以及工具菜单按钮</button>
+		<button id="collapseSouth">折叠尾部面板</button>
+		<button id="getSouth">返回尾部面板</button>
+	</div>
+
+	<script>
+		$(document).ready(function(){
+			$("#addEast").on("click", function () {
+				$('#cc').layout('add',{
+					region: 'east',
+					width: 250,
+					title: 'new added East Title',
+					split: true,
+					tools: [{
+						iconCls:'icon-add',
+						handler:function(){alert('add')}
+					},{
+						iconCls:'icon-remove',
+						handler:function(){alert('remove')}
+					}]
+				});
+			});
+
+			//为西部区域添加toggle 按钮
+			$('#cc').layout('panel','west').panel({
+				tools:[{
+					iconCls:"icon-add my-toggle",
+					handler:toggle
+				}]
+			});
+
+			//为panel组件添加自定义收缩函数
+			$.extend($.fn.panel.methods, {
+				mytoggle: function(jq, nMinwidth){
+					console.log($(this));
+					return jq.each(function(){
+						console.log($(this).panel('options'));
+						//$(this).dialog('move', newposition);
+					});
+				}
+			});
+
+			//折叠尾部面板 collapse the footer panle
+			$("#collapseSouth").on("click", function(){
+				$('#cc').layout('collapse','south');
+			});
+
+			//返回尾部面板 get the footer panle
+			$("#getSouth").on("click", function(){
+				console.log($('#cc').layout('panel','south'));
+			});
+		});
+
+		function toggle(e){
+			console.log("toggle");
+			console.log(e);
+
+			console.log(this);
+
+			$('#cc').layout('panel','west').panel("mytoggle", 50);
+		}
+	</script>
+</body>
+</html>

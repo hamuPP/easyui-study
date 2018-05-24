@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>portal&panel</title>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<script src="../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<script src="../jquery-easyui-1.5/jquery-easyui-portal/jquery.portal.js"></script>
+	<style>
+		html,body{
+			margin: 0;
+			padding: 0;
+		}
+		.pp{
+			width: 96%;
+			margin:0 2%;
+			outline:1px solid green;
+		}
+		.portal-column{
+			outline:1px solid #aa2a15;
+		}
+	</style>
+</head>
+<body>
+
+<h3>portal</h3>
+<div id="pp" class="pp">
+	<div style="width:20%"></div>
+	<div style="width:30%"></div>
+	<div style="width:20%"></div>
+</div>
+
+</body>
+<script>
+	$(document).ready(function(){
+		var pp = $("#pp");
+
+		/*portal参数*/
+		var opts ={
+
+		};
+		pp.portal({
+			onResize:function(){
+//				console.log(666);
+			}
+		});
+
+		var panel0 = $("<div></div>").appendTo("body");
+		var panel1 = $("<div></div>").appendTo("body");
+		var panel2 = $("<div></div>").appendTo("body");
+
+		panel0.panel({
+			title: 'My Title',
+			height:150,
+			closable: true,
+			collapsible: true
+		});
+		panel1.panel({
+			title: 'panel 1号',
+			height:250,
+			closable: true,
+			collapsible: true
+		});
+		panel2.panel({
+			title: 'panel 2号',
+			height:150,
+			closable: true,
+			collapsible: true
+		});
+
+		// add the panel to portal
+		pp.portal('add', {
+			panel: panel0,
+			columnIndex: 0
+		});
+		pp.portal('add', {
+			panel: panel1,
+			columnIndex: 1
+		});
+		pp.portal('add', {
+			panel: panel2,
+			columnIndex: 2
+		});
+
+		window.onresize = function(){
+
+			var aPortalCol = $(".portal-column-td");
+//			console.log(aPortalCol);
+//			pp.portal("resize",{
+//				width:$("#pp").width()
+//			});
+//			panel0.panel('resize',{width: $(window).width()*0.4,height: 400});
+			$(aPortalCol[0]).width($(window).width()*0.2);
+			$(aPortalCol[1]).width($(window).width()*0.3);
+			$(aPortalCol[2]).width($(window).width()*0.2);
+
+			var portalCol = $(".portal-column");
+
+			//找到每个portal-column的父元素
+			for(var i = 0,len = portalCol.length; i < len;i++){
+				var parent = $(portalCol[i]).parent();
+				var parentWidth = parent.width();
+				console.log(parentWidth);
+//				console.log(i);
+			}
+		}
+	});
+</script>
+</html>

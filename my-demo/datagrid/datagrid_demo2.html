@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>datagrid</title>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<style>
+		.rowStyleRed{
+			background: darkred;
+			color:#fff;
+		}
+	</style>
+</head>
+<body>
+	<table id="dg"
+		   title="table title文字"
+			class="easyui-datagrid"
+		   data-options="toolbar:'#tableToolBar',
+		   				striped:true,
+		   				url:'Invoice2.json',
+		   				method:'get',
+		   				rownumbers:true,
+		   				singleSelect:true,
+		   				multiSort:true,
+		   				remoteSort:false,
+		   				pagination:true,
+		   				pageSize:5,
+		   				pageList:[5,10,15],
+		   				rowStyler:function(i,r){
+		   					if(r.Status =='A'){
+		   						return 'background-color:#6293BB;color:#fff;'
+		   					}else if(r.Status =='B'){
+		   						return 'rowStyleRed'
+		   					}
+		   				},
+		   				loadFilter:function(data){
+		   					if(data.rows){
+		   						return data.rows;
+		   					}else{
+		   						return data;
+		   					};
+		   				},
+		   				onClickCell:onClickCell,
+		   				onClickRow:onClickRow,
+		   				onBeforeEdit:onBeforeEdit,
+		   				onBeginEdit:onBeginEdit,
+		   				onEndEdit:onEndEdit,
+		   				onDblClickCell:onDblClickCell
+		   				">
+		<thead>
+		<tr>
+			<th data-options="field:'Status',title:'列标题文本Status',sortable:true,
+								editor:{
+									type:'combobox',
+									options:{
+										valueField:'StatusId',
+										textField:'StatusText',
+										method:'get',
+										url:'StatusList.json',
+										required:true
+									}
+								}">
+			Status</th>
+			<th data-options="field:'ProductName',sortable:true,editor:'text'">名称</th>
+			<th data-options="field:'ExtendedPrice',width:100,align:'right',
+								sortable:true,
+								editor:'text',
+								formatter:function(val,row,index){
+									return val;
+								},
+								sorter:function(a,b){
+									console.log(a);
+									console.log(b);
+								}
+			">价格</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td>001</td>
+			<td>name1</td>
+			<td>2323</td>
+		</tr>
+		<tr>
+			<td>002</td><td>name2</td><td>4612</td>
+		</tr>
+		</tbody>
+	</table>
+
+	<div id="tableToolBar">
+		<a href="javascript:;" class="easyui-linkbutton" id="addBtn"
+		   data-options="iconCls:'icon-add',plain:true" >增加</a>
+		<a href="javascript:;" class="easyui-linkbutton" id="removeBtn"
+		   data-options="iconCls:'icon-remove',plain:true" >删除</a>
+		<a href="javascript:;" class="easyui-linkbutton" id="rejectBtn"
+		   data-options="iconCls:'icon-undo',plain:true" >撤销</a>
+		<a href="javascript:;" class="easyui-linkbutton" id="getChangeBtn"
+		   data-options="iconCls:'icon-search',plain:true" >获得修改</a>
+		<a href="javascript:;" class="easyui-linkbutton" id="saveBtn"
+		   data-options="iconCls:'icon-save',plain:true" >保存</a>
+	</div>
+	<button id="searchBtn1">使用一些参数查询数据</button>
+</body>
+<script>
+	var editIndex = undefined;
+	$(document).ready(function(){
+		$("#searchBtn1").click(function(){
+			$('#dg').datagrid('load', {
+				name: 'easyui',
+				address: 'ho'
+			});
+		});
+
+		//toolbar 的增加删除等操作
+		$("#addBtn").on("click",function(){
+			$('#dg').datagrid('appendRow',{
+				Status: 'AAA',
+				ExtendedPrice: 30,
+				ProductName: '新消息'
+			});
+		});
+	});
+
+	/*编辑单元格相关*/
+	function endEditing(){
+		if(editIndex == undefined){
+			return true;
+		}
+		if($("#dg").datagrid("validateRow", editIndex)){
+			$("#dg").datagrid("endEdit", editIndex);
+			editIndex = undefined;
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	function onClickCell(index, field, value){
+		console.log(index +"/" + field +"/"+value);
+	}
+
+	//双击单元格时开始编辑
+	function onDblClickCell(index, field, value){
+//		console.log("双击了："+index +"/" + field +"/"+value);
+//		console.log($(this));
+//		console.log(editIndex +":"+ index);
+		if(editIndex != index){
+			$(this).datagrid('endEdit', editIndex);
+			$(this).datagrid('beginEdit', index);
+			//然后定位到编辑器的输入框上
+			var ed = $(this).datagrid('getEditor', {index:index,field:field});
+			$(ed.target).focus();
+			editIndex = index;
+		}
+	}
+
+	function onClickRow(index, row){
+//		console.log("用户点击了行："+index + "/ " + JSON.stringify(row));
+	}
+
+	function onBeginEdit(index, row){
+		console.log("在一行进入编辑模式的时候触发："+index + "/ " + JSON.stringify(row));
+	}
+
+	function onBeforeEdit(index, row){
+		console.log("在用户开始编辑一行的时候触发："+index + "/ " + JSON.stringify(row));
+	}
+
+	function onEndEdit(index, row){
+		console.log("在完成编辑但编辑器还没有销毁之前触发。："+index + "/ " + JSON.stringify(row));
+		var ed = $("#dg").datagrid("getEditor",{
+			index: index,
+			field:'Status'
+		});
+		console.log($(ed.target).combobox("getText"));
+		row.Status = $(ed.target).combobox("getText");
+
+	}
+</script>
+</html>

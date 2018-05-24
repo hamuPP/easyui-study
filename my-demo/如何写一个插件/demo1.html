@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Columns Extension for DataGrid - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/icon.css">
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+    <!--<script type="text/javascript" src="../../jquery-easyui-1.5/columns-ext/columns-ext.js"></script>-->
+</head>
+<body>
+	<div id="divMyPlugin1" class="easyui-hello"
+		 data-options="to:'world', myColor:'red', some:'aaa' ">点我sayHello一次</div>
+	<div id="divMyPlugin2" class="easyui-hello2"
+		 data-options="to:'world',
+						 repeatTimes:3,
+						 myColor:'green',
+						 some:'aaa',
+						 howToSay:customeHowToSay">
+		点我sayHello三次
+	</div>
+
+	<div id="div2">傻子凉凉</div>
+
+	<button id="btn1">调用插件的方法</button>
+	<button id="btn2">调用插件的拓展方法</button>
+	<button >Clear</button>
+	<div id="divMsg">
+
+	</div>
+
+</body>
+<script src="hello.js"></script>
+<script src="hello2.js"></script>
+<script>
+	function invokePluginMethod() {
+		$('#divMyPlugin2').hello('sayHello');
+	}
+
+	function invokePluginExMethod() {
+		console.log(2)
+		$('#divMyPlugin2').hello2('sayHello');
+	}
+
+	function customeHowToSay(to) {
+		$('<p></p>').html('你好, <span style="color:red">' + to + '<span>!' + new Date().getTime()).appendTo($('#divMsg'));
+	}
+
+//尝试用js初始化1个div
+	var div2 = $("#div2");
+	div2.hello({
+		to:"略略略",
+		myColor:"green",
+		repeatTimes:5
+	});
+
+
+	$("#btn1").click(function(){
+		$("#divMyPlugin1").hello("sayHello");
+	});
+
+	$("#btn2").click(function(){
+		invokePluginExMethod();
+	});
+</script>
+</html>

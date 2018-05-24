@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Columns Extension for DataGrid - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5/themes/icon.css">
+	<style>
+		body{
+			margin: 0;
+		}
+		/*<!-- 扩展属性-->*/
+		.extend-attribution-col{
+			width: 80%;
+			height: 400px;
+		}
+		.extend-attribution-col .datagrid-header-row{
+			height: 50px;
+		}
+		.extend-attribution-col .datagrid-header-row .datagrid-cell > span{
+			/*display: block;*/
+		}
+		.extend-attribution-col .datagrid-header-row .datagrid-cell .left-icon{
+			float: left;
+		}
+		.extend-attribution-col .datagrid-header-row .datagrid-cell .right-icon{
+			float: right;
+		}
+		/*没有左侧间隔的窄型menu下拉菜单*/
+		.menu-plain .menu-line{
+			border:none;
+			left:0;
+		}
+		.menu-plain .menu-text{
+			padding-left: 0;
+		}
+		.menu-plain .menu-text, .menu-text span{
+			font-size:14px;
+		}
+	</style>
+    <script type="text/javascript" src="../jquery-easyui-1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1.5/columns-ext/columns-ext.js"></script>
+    <script type="text/javascript">
+        var data = {
+			"total":28,
+			"rows":[
+				{"code":"code-val","name":"name-val","price":"price-val"}
+			]};
+
+		var cols = [
+			{field:'code',title:'Code-title',width:200,align:'center',editable:true},
+			{field:'name',title:'Name-title',width:200,align:'center',editable:false},
+			{field:'price',title:'Price-title',width:200,align:'center',editable:true}
+		];
+
+		var userInputInfo = {};
+		var insertIndex = 0;
+
+		function initDg(){
+			$('#dg').datagrid({
+				singleSelect: true,
+				data: data,
+				fitColumns:false,
+				fit:true,
+				scrollbarSize:0,
+				columns:[cols],
+				/*重设第一行row的高度满高*/
+				rowStyler: function(index,row){
+					var datagridBodyHeight = $('.datagrid-body').eq(1).height();
+					return "height: "+ datagridBodyHeight +"px;";
+				},
+				onDropColumn:function(to,from,point){
+					generateHeaders();
+					//重新刷新表格数据
+					$('#dg').datagrid("updateRow", {
+						index:0,
+						row:data.rows
+					});
+
+					//将用户输入的信息写进前端页面
+					_reRenderFrontPage()
+				}
+			});
+		}
+
+		function generateHeaders(){
+
+			//生成左侧下拉列表和右侧列表
+			var $body = $("body");
+			var leftMenu = $("<div id='leftMenu' class='menu-plain'>" +
+					"<div data-operation='text'>文本</div> " +
+					"<div data-operation='phone'>号码</div>" +
+					"<div data-operation='number'>数值</div> " +
+					"<div data-operation='options'>选项</div>" +
+					"<div data-operation='list'>下拉菜单</div> " +
+					"<div data-operation='date'>日期和时间</div>" +
+					"<div data-operation='img'>图片</div> " +
+					"</div>");
+			var rightMenuEditable = $("<div id='rightMenuEditable'  class='menu-plain'>" +
+					"<div data-operation='modifyColName'>改列名</div> " +
+//									"<div data-operation='modifyColType'>改列类型</div>" +
+					"<div data-operation='modifyColAttr'>改列属性</div>" +
+//									"<div data-operation='setAPI'>设定接口参数</div>" +
+					"<div data-operation='insertBefore'>在前一列插入</div>" +
+					"<div data-operation='insertAfter'>在后一列插入</div>" +
+					"<div data-operation='cloneCol'>复制列</div>" +
+					"<div>删除列</div>" +
+					"</div>");
+			var rightMenuNonEditable = $("<div id='rightMenuNonEditable'  class='menu-plain'>" +
+					"<div data-operation='insertBefore'>在前一列插入</div>" +
+					"<div data-operation='insertAfter'>在后一列插入</div>" +
+					"</div>");
+			leftMenu.hide().appendTo($body);
+			rightMenuEditable.hide().appendTo($body);
+			rightMenuNonEditable.hide().appendTo($body);
+
+			//为每个列重设头部
+			var allFields = $('#dg').datagrid('getColumnFields');
+			for(var i = 0,len = allFields.length; i< len;i++){
+				var oField = allFields[i];
+				var oFieldOpt = $('#dg').datagrid('getColumnOption', oField);
+				var oFieldTitle = oFieldOpt.title;
+				//	console.log(oFieldOpt);
+				var oHeader = $(".datagrid-header-row").find(".datagrid-cell").eq(i);
+				var rightMenuBtn = $("<a href='javascript:void(0)' class='right-icon'></a>");
+				//如果editable为true,表示此列可编辑
+				if(oFieldOpt.editable){
+					var leftMenuBtn = $("<a href='javascript:void(0)' class='left-icon'></a>");
+					//左menubutton加入到表格头中
+					oHeader.prepend(leftMenuBtn);
+					var _leftMenu = leftMenuBtn.menubutton({
+						iconCls: "icon-add",
+						menu: '#leftMenu',
+						text: ""
+					});
+					//左menu加入点击事件
+					$(_leftMenu.menubutton('options').menu).menu({
+						onClick: function (item) {
+							//判断当前点击的左下拉菜单是属于哪个col内
+							var whichCol = _getDatagridCol($(this));
+							//生成表格内的内容
+							_generateContent(whichCol, item.target.dataset.operation);
+						}
+					});
+
+					//右menubutton加入到表格头中
+					oHeader.append(rightMenuBtn);
+					var _rightMenu = rightMenuBtn.menubutton({
+						iconCls: "icon-more",
+						menu: '#rightMenuEditable'
+					});
+					//右menu加入点击事件
+					$(_rightMenu.menubutton('options').menu).menu({
+						onClick: function (item) {
+							//判断当前点击的右下拉菜单是属于哪个col内
+							var whichCol = _getDatagridCol($(this));
+							//生成表格内的内容
+							_generateContent(whichCol, item.target.dataset.operation);
+						}
+					});
+				}else{
+					//如果editable为false
+					//右menubutton加入到表格头中
+					oHeader.append(rightMenuBtn);
+					var _rightMenu = rightMenuBtn.menubutton({
+						iconCls: "icon-more",
+						menu: '#rightMenuNonEditable'
+					});
+					//右menu加入点击事件
+					$(_rightMenu.menubutton('options').menu).menu({
+						onClick: function (item) {
+							//判断当前点击的右下拉菜单是属于哪个col内
+							var whichCol = _getDatagridCol($(this));
+							//生成表格内的内容
+							_generateContent(whichCol, item.target.dataset.operation);
+						}
+					});
+				}
+			}
+		}
+
+        $(function(){
+
+			initDg();
+
+			generateHeaders();
+
+			$('#dg').datagrid('columnMoving');
+        })
+
+		//判断当前鼠标点击在第几个col内
+		function _getDatagridCol(clickedEl){
+			var clickedElLeft = parseInt(clickedEl.css('left'));
+			var datagridColSum = $(".datagrid-header-row > td");
+			var datagridColWidth = datagridColSum[0].offsetWidth;
+			var whichCol = 0;
+			var scrollLeft = $(".datagrid-body").eq(1).scrollLeft();
+
+			if(scrollLeft > 0){
+				clickedElLeft = clickedElLeft + scrollLeft;
+			}
+
+			if(clickedElLeft / datagridColWidth > 0){
+				whichCol = Math.floor(clickedElLeft / datagridColWidth);
+			}
+			return whichCol;
+		}
+
+		/**
+		 * 根据用户点击的左右下拉列表的选项、生成每个单元格内的内容
+		 * @param {Number} index 列索引
+		 * @param {String} operation 操作
+		 * @private
+		 */
+		function _generateContent(index, operation){
+			var td = $(".datagrid-body tbody").find(".datagrid-row").find("td").eq(index);
+			var cell = td.find(".datagrid-cell");
+			var contentStr = "";
+			switch (operation){
+				case "text":
+					contentStr = "<input placeholder='输入文本' data-field='colType-1' type='text' oninput='_saveUserInput(this)'/>";
+					break;
+				case "phone":
+					contentStr = "<input placeholder='输入号码' data-field='colType-2' type='number' oninput='_saveUserInput(this)'/>";
+					break;
+				case "number":
+					contentStr = "<input placeholder='输入数值' data-field='colType-3' type='number' oninput='_saveUserInput(this)'/>";
+					break;
+				case "options":
+					contentStr = "<input placeholder='输入选项' data-field='colType-4' type='text' oninput='_saveUserInput(this)'/>";
+					break;
+				case "list":
+					contentStr = "<input placeholder='下拉菜单' data-field='colType-5' type='number' oninput='_saveUserInput(this)'/>";
+					break;
+				case "date":
+					contentStr = "<input placeholder='时间' data-field='colType-6' type='datetime' oninput='_saveUserInput(this)'/>";
+					break;
+				case "img":
+					contentStr = "<input placeholder='图片'  data-field='colType-7' type='text' oninput='_saveUserInput(this)'/>";
+					break;
+				case "modifyColAttr":
+					contentStr = "<p>默认值</p>" +
+							"<input placeholder='输入默认值'  data-field='attr-1' type='text' oninput='_saveUserInput(this)'/>" +
+							"<p>设置</p>" +
+							"<input type='checkbox' name='set' value='1' onclick='_saveUserInput(this)'/>必填" +
+							"<input type='checkbox' name='set' value='2' onclick='_saveUserInput(this)'/>唯一";
+					break;
+				case "insertBefore":
+
+						//true代表前一列插入
+					_insertCol(index,true);
+					_reRenderFrontPage();
+					break;
+				case "insertAfter":
+						_insertCol(index,false);
+					_reRenderFrontPage();
+					break;
+				default :
+					break;
+			}
+			cell[0].innerHTML = contentStr;
+			var tdField = $(td).attr("field");
+			//修改渲染datagrid的data
+			data.rows[0][tdField] = contentStr;
+		}
+
+		//在前端层保存用户输入信息
+		function _saveUserInput(t){
+			var $td = $(t).parent().parent();
+			var field = $td.attr("field");
+			var innerField = $(t).data("field");
+
+			if(typeof userInputInfo[field] !== "object"){
+				userInputInfo[field] = {};
+			}
+			//如果修改的是列类型colType--即点击的是左下拉菜单
+			if(innerField && innerField.indexOf("colType") >= 0){
+				userInputInfo[field]["colType"] = innerField.split("-")[1];
+				userInputInfo[field]["lable"] = $(t).val();
+			}
+			//如果点击的是右下拉菜单的修改属性
+			if(innerField && innerField.indexOf("attr") >= 0){
+				userInputInfo[field]["attr"] = {};
+				userInputInfo[field]["attr"]["set"] = "";
+				userInputInfo[field]["attr"]["default"] = $(t).val();
+			}
+			//如果点击的是右下拉菜单的修改属性的设置:必填唯一
+			if(!innerField && $(t).attr("name") == "set"){
+				var allCheckboxes = $td.find("input[name='set']:checked");
+				var checkValue = [];
+				for(var i = 0,len = allCheckboxes.length; i<len; i++){
+					checkValue.push(allCheckboxes[i].value);
+				}
+				userInputInfo[field]["attr"]["set"] = checkValue.join();
+			}
+		}
+
+		/**
+		 * 在前/后一列插入
+		 * @param {Number} index 操作的当前列
+		 * @param {Boolean} bBefore 前一列或后一列
+		 * @private
+		 * @returns undefined
+		 */
+		function _insertCol(index, bBefore){
+			var currentRow = data.rows[0];
+			var newCols = [];
+			var tag = bBefore? 0 : -1;
+			//增加列
+			for(var i in cols ){
+				tag++;
+				newCols.push(cols[i]);
+				if(tag == index){
+					insertIndex++;
+					var oNewInsertion = {field:'_insert' + insertIndex ,title:'新插入'+ insertIndex,width:200,align:'center',editable:true};
+					newCols.push(oNewInsertion);
+				}
+			}
+			cols = newCols;
+
+			initDg();
+
+			generateHeaders();
+
+			$('#dg').datagrid('columnMoving');
+		};
+
+		/**
+		 * 根据用户输入信息，重新渲染前端页面数据
+		 * @private
+		 */
+		function _reRenderFrontPage(){
+			for(var i in data.rows[0]){
+				if(userInputInfo[i]){
+					var field = "field=" + i;
+					var td = $("td["+field+"]")[1];
+					//如果是属性修改
+					if(userInputInfo[i]["attr"]){
+						var children = $(td).children().children();
+						var defaultInput = $(children[1]);
+						var setInputMust = $(children[3]);
+						var setInputOnly = $(children[4]);
+
+						$(defaultInput).val(userInputInfo[i]["attr"]["default"]);
+						if(userInputInfo[i]["attr"]["set"].indexOf("1") >= 0 ){
+							setInputMust.attr("checked","checked");
+						}
+						if(userInputInfo[i]["attr"]["set"].indexOf("2") >= 0 ){
+							setInputOnly.attr("checked","checked");
+						}
+					}else{
+						var input = $(td).children().children();
+						input[0].value = userInputInfo[i].lable;
+					}
+				}
+			}
+		}
+    </script>
+</head>
+<body>
+	<div class="easyui-layout" style="padding:5px;height: 440px;">
+		<div region="center" style="height: 440px;" border="false">
+			<div class="extend-attribution-col">
+				<table id="dg" title="title" style="height:auto">
+					<!--<thead>-->
+						<!--<tr>-->
+							<!--<th data-options="field:'itemid',width:100">Item ID</th>-->
+							<!--<th data-options="field:'productid',width:120">Product</th>-->
+							<!--<th data-options="field:'listprice',width:90,align:'right'">List Price</th>-->
+							<!--<th data-options="field:'unitcost',width:90,align:'right'">Unit Cost</th>-->
+							<!--<th data-options="field:'attr1',width:250">Attribute</th>-->
+							<!--<th data-options="field:'status',width:60,align:'center'">Status</th>-->
+						<!--</tr>-->
+					<!--</thead>-->
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

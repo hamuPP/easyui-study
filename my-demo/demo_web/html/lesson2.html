@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>后台管理系统-首页</title>
+	<link rel="stylesheet" href="../../../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../../../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../../../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<link rel="stylesheet" href="../css/mystyle2.css">
+</head>
+<body>
+	<div id="cc" class="easyui-layout my-layout2" data-options="fit:true">
+		<div data-options="region:'north'" style="height:100px;">
+			<ul class="header-nav">
+				<li class="item"><a href="#">登录</a></li>
+				<li class="item"><a href="#">注册</a></li>
+				<li class="item"><a href="#">首页</a></li>
+			</ul>
+		</div>
+		<div data-options="region:'south',split:true,href:'copyright.html'" style="height:100px;"></div>
+		<div data-options="region:'west',title:'菜单',split:true" style="width:150px;">
+			<ul id="navTree" class="easyui-tree"></ul>
+		</div>
+		<div id="center" data-options="region:'center'">
+			<header id="centerHeader">企业组织管理</header>
+			<div id="centerContent" class="easyui-panel" data-options="fit:true,href:'shenfenguanli/qiyezhanghao.html'"></div>
+		</div>
+	</div>
+	<div class="operate-panel" style="display: none;">
+		<h4>操作面板</h4>
+		<button id="addEast">添加东侧区域以及工具菜单按钮</button>
+		<button id="collapseSouth">折叠尾部面板</button>
+		<button id="getSouth">返回尾部面板</button>
+	</div>
+
+	<script>
+		$(document).ready(function(){
+
+			var navTree = $("#navTree");
+
+			//加载左侧树数据、点击左侧树，载入右侧内容
+			navTree.tree({
+				url:"http://127.0.0.1:3000/treeData",
+				loadFilter:loadTreeData,
+				onClick:function(node){
+					var sCurrentUrl = $("#centerContent").panel("options").href;
+					var sTargetUrl = node.attributes ? node.attributes.url : "";
+
+					//载入远程页面
+					if(sTargetUrl && sCurrentUrl != sTargetUrl){
+						$("#centerContent").panel("refresh",sTargetUrl);
+					}
+				}
+			});
+		});
+
+		/**
+		 *
+		 * @param data
+		 * @param parent
+		 * @returns {JSON} 过滤后的树数据
+		 */
+		function loadTreeData(data, parent){
+//			console.log(data);
+//			console.log(parent);
+
+			return data;
+		}
+
+	</script>
+</body>
+</html>

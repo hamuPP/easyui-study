@@ -1,0 +1,50 @@
+[
+	{
+		"menu_id": "73",
+		"menu_pid": "0",
+		"menu_mca": "",
+		"menu_name": "\u7528\u6237\u4e2d\u5fc3",
+		"menu_url": "",
+		"menu_seq": "1",
+		"menu_disp": "D",
+		"menu_status": "U",
+		"menu_line": "0",
+		"menu_icon": "fa-envelope-o",
+		"id": "73",
+		"pid": "0",
+		"text": "\u7528\u6237\u4e2d\u5fc3",
+		"state": "closed"
+	},
+	{
+		"menu_id": "76",
+		"menu_pid": "0",
+		"menu_mca": "",
+		"menu_name": "\u8d22\u52a1\u7ba1\u7406",
+		"menu_url": "",
+		"menu_seq": "2",
+		"menu_disp": "D",
+		"menu_status": "U",
+		"menu_line": "0",
+		"menu_icon": "fa-bar-chart-o",
+		"id": "76",
+		"pid": "0",
+		"text": "\u8d22\u52a1\u7ba1\u7406",
+		"state": "closed"
+	},
+	{
+		"menu_id": "65",
+		"menu_pid": "0",
+		"menu_mca": "",
+		"menu_name": "\u7cfb\u7edf\u7ba1\u7406",
+		"menu_url": "",
+		"menu_seq": "0",
+		"menu_disp": "A",
+		"menu_status": "U",
+		"menu_line": "0",
+		"menu_icon": "fa-share-alt-square",
+		"id": "65",
+		"pid": "0",
+		"text": "\u7cfb\u7edf\u7ba1\u7406",
+		"state": "closed"
+	}
+]

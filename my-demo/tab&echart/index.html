@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Basic Tabs - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/icon.css">
+	<script type="text/javascript" src="../../jquery-easyui-1.5/jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../../public/echarts.min.js"></script>
+</head>
+<body class="easyui-layout">
+<!-- 左侧的概览-->
+<div data-options="region:'west',split:true,border:false,hideCollapsedContent:false,bodyCls:'panel-right-border'"
+	 style="width:250px;padding:15px 20px 0 15px;">
+	<div class="easyui-panel" title="无身份证的用户"
+		 style="width:100%;height:150px;"
+		 data-options="cls:'overview-box'">
+		<div class='datagrid-toolbar'>
+			<span class='datagrid-btn-separator' style="height:20px; overflow:hidden;"></span>
+			<a onClick="alert('reload..')" class="easyui-linkbutton" plain='true' href="javascript:void(0)">
+				<i class="fa fa-refresh"></i> 刷新
+			</a>
+			<span class="comm_nobreak right-msg">最后更新:<label>2016/7/7</label></span>
+		</div>
+		<p class="overview-number">5</p>
+	</div>
+	<div class="easyui-panel" title="无手机号的用户"
+		 style="width:100%;height:150px;"
+		 data-options="cls:'overview-box'">
+		<div class='datagrid-toolbar'>
+			<span class='datagrid-btn-separator' style="height:20px; overflow:hidden;"></span>
+			<a onClick="alert('reload..')" class="easyui-linkbutton" plain='true' href="javascript:void(0)">
+				<i class="fa fa-refresh"></i> 刷新
+			</a>
+			<span class="comm_nobreak right-msg">最后更新:<label>2016/7/7</label></span>
+		</div>
+		<p class="overview-number">5</p>
+	</div>
+	<div class="easyui-panel" title="重复注册手机号"
+		 style="width:100%;height:150px;"
+		 data-options="cls:'overview-box'">
+		<div class='datagrid-toolbar'>
+			<span class='datagrid-btn-separator' style="height:20px; overflow:hidden;"></span>
+			<a onClick="alert('reload..')" class="easyui-linkbutton" plain='true' href="javascript:void(0)">
+				<i class="fa fa-refresh"></i> 刷新
+			</a>
+			<span class="comm_nobreak right-msg">最后更新:<label>2016/7/7</label></span>
+		</div>
+		<p class="overview-number">5</p>
+	</div>
+	<div class="easyui-panel" title="多点登录用户"
+		 style="width:100%;height:150px;"
+		 data-options="cls:'overview-box'">
+		<div class='datagrid-toolbar'>
+			<span class='datagrid-btn-separator' style="height:20px; overflow:hidden;"></span>
+			<a onClick="alert('reload..')" class="easyui-linkbutton" plain='true' href="javascript:void(0)">
+				<i class="fa fa-refresh"></i> 刷新
+			</a>
+			<span class="comm_nobreak right-msg">最后更新:<label>2016/7/7</label></span>
+		</div>
+		<p class="overview-number">5</p>
+	</div>
+	<div class="easyui-panel" title="密码重试异常"
+		 style="width:100%;height:150px;"
+		 data-options="cls:'overview-box'">
+		<div class='datagrid-toolbar'>
+			<span class='datagrid-btn-separator' style="height:20px; overflow:hidden;"></span>
+			<a onClick="alert('reload..')" class="easyui-linkbutton" plain='true' href="javascript:void(0)">
+				<i class="fa fa-refresh"></i> 刷新
+			</a>
+			<span class="comm_nobreak right-msg">最后更新:<label>2016/7/7</label></span>
+		</div>
+		<p class="overview-number">5</p>
+	</div>
+	<div class="easyui-panel" title="异常频繁登录"
+		 style="width:100%;height:150px;"
+		 data-options="cls:'overview-box'">
+		<div class='datagrid-toolbar'>
+			<span class='datagrid-btn-separator' style="height:20px; overflow:hidden;"></span>
+			<a onClick="alert('reload..')" class="easyui-linkbutton" plain='true' href="javascript:void(0)">
+				<i class="fa fa-refresh"></i> 刷新
+			</a>
+			<span class="comm_nobreak right-msg">最后更新:<label>2016/7/7</label></span>
+		</div>
+		<p class="overview-number">5</p>
+	</div>
+	<div class="easyui-panel" title="用户组织缺失"
+		 style="width:100%;height:150px;"
+		 data-options="cls:'overview-box'">
+		<div class='datagrid-toolbar'>
+			<span class='datagrid-btn-separator' style="height:20px; overflow:hidden;"></span>
+			<a onClick="alert('reload..')" class="easyui-linkbutton" plain='true' href="javascript:void(0)">
+				<i class="fa fa-refresh"></i> 刷新
+			</a>
+			<span class="comm_nobreak right-msg">最后更新:<label>2016/7/7</label></span>
+		</div>
+		<p class="overview-number">5</p>
+	</div>
+</div>
+
+<!--右侧的图表-->
+<div data-options="region:'center',split:false,border:false,bodyCls:'panel-left-border'">
+	<div class="easyui-layout" data-options="fit:true" id="main">
+		<div data-options="region:'north',hideCollapsedContent:false,split:true,height:'auto'"
+			 title="添加图表" collapsed=false
+			 border='false' class='datagrid-toolbar'>
+			<form id="chartAddOpts" name="complexSearch" class="easyui-form comm-form"
+				  data-options="novalidate:true">
+				<div class='comm_inlineb comm_pa5'>
+					<input class="easyui-textbox4" type="checkbox" name="addChart"/>
+					<span>用户活跃度统计，结合登录分析</span>
+				</div>
+				<div class='comm_inlineb comm_pa5'>
+					<input class="easyui-textbox4" type="checkbox" name="addChart"/>
+					<span>管理员统计</span>
+				</div>
+				<div class='comm_inlineb comm_pa5'>
+					<input class="easyui-textbox4" type="checkbox" name="addChart"/>
+					<span>密码过期统计</span>
+				</div>
+				<div class='comm_inlineb comm_pa5'>
+					<input class="easyui-textbox4" type="checkbox" name="addChart"/>
+					<span>僵死账号统计（从不登录）</span>
+				</div>
+				<div class='comm_inlineb' style="margin-left:23px;">
+					<a href="javascript:void(0)" class="easyui-linkbutton c8" id="btnAddChart">
+						<i class="fa fa-plus-square"></i> 新增</a>
+				</div>
+			</form>
+		</div>
+		<div data-options="region:'center',border:false,bodyCls:'panel-top-border'" id="chartsBox">
+			<div id="defaultChartBox" class="chart-box">
+				<div class="datagrid-toolbar button-box">
+					<span class='datagrid-btn-separator' style="height:20px; overflow:hidden;"></span>
+					<a class="easyui-linkbutton btnRefresh" plain='true' href="javascript:void(0)" data-chartidx="0">
+						<i class="fa fa-refresh"></i> 刷新
+					</a>
+				</div>
+				<div id="defaultChartContent" class="chart-content"></div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+	$(function(){
+		initChart();
+	});
+
+	var aCharts = [];
+	var chartidx = 0;
+
+	function resizeAllCharts(charts){
+		console.log("resize");
+		var centerPanel = $("#main").layout("panel","center");
+		var centerPanelOpts = centerPanel.panel("options");
+		var w = centerPanelOpts.width;
+		var h = centerPanelOpts.height;
+		charts[0].resize({width:w,
+			height:h});
+
+		centerPanel.panel({
+			onResize:function(w,h){
+				console.log("onResize")
+				for(var i in charts){
+					var oChart = charts[i];
+					oChart.resize({width:w,
+					height:h});
+				}
+			}
+		});
+	}
+
+
+	function initChart(){
+		var defChartContent = document.getElementById("defaultChartContent");
+		var myChart = echarts.init(defChartContent);
+		var option = {
+			title: {
+				text: '默认图表',
+				subtext:"最近更新：" + new Date()
+			},
+			tooltip: {},
+			legend: {
+				data:['销量']
+			},
+			xAxis: {
+				data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+			},
+			yAxis: {},
+			series: [{
+				name: '销量',
+				type: 'bar',
+				data: [5, 20, 36, 10, 10, 20]
+			}]
+		};
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+		aCharts.push(myChart);
+		resizeAllCharts(aCharts);
+	}
+</script>
+</html>

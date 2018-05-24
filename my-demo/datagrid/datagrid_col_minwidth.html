@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>datagrid</title>
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+</head>
+<body>
+
+	<div id="dgwrapper">
+		<table id="dg"></table>
+	</div>
+
+</body>
+<script>
+	var $dgWraper = $("#dgwrapper");
+	var cells = $dgWraper.find("div.datagrid-cell");
+	console.log(cells)
+</script>
+<script>
+	$(function(){
+		var $dg = $("#dg");
+
+		$dg.datagrid({
+			url:"datagrid_data1.json",
+			method:"get",
+			fitColumns:true,
+			columns:[[
+				{field:"productid",title:"productid",width:100},
+				{field:"productname",title:"productname",width:100},
+				{field:"unitcost",title:"unitcost",width:100},
+				{field:"status",title:"status",width:100}
+			]],
+			onLoadSuccess:function(){
+				var $dgWraper = $("#dgwrapper .datagrid-htable");
+				var cells = $dgWraper.find("div.datagrid-cell");
+				console.log(cells);
+				cells.each(function(){
+					$(this).resizable({
+						minWidth:100
+					})
+				})
+			}
+		})
+	})
+</script>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		body {
+			background: #EFFDFE;
+			position: relative;
+		}
+
+		table {
+			border: solid #4DB7B6;
+			border-width: 1px 0px 0px 1px;
+			width:55%;
+		}
+
+		table tr th,.th {
+			background: #A9EBE9;
+			text-align: center;
+			border: solid #4DB7B6;
+			border-width: 0px 1px 1px 0px;
+			padding: 8px 0px;
+			font-size: 10px;
+
+		}
+		.th{
+			display: block;
+			float: left;
+			width:33.333%;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		.th > .inner-title{
+			margin-right:1px;
+		}
+		.th > .inner-title:last-child{
+			margin-right:0;
+		}
+
+		table tr td {
+			border: solid #4DB7B6;
+			border-width: 0px 1px 1px 0px;
+			padding: 8px 0px;
+			empty-cells: show;
+			text-align: center;
+			font-size: 10px;
+			width:12%;
+		}
+
+		.tbl-textarea, .tbl-input{
+			width:88%;
+		}
+
+	</style>
+</head>
+
+<body>
+<table id="index">
+	<tr>
+		<th rowspan=2 colspan="1" class="th1">来水量</th>
+		<th rowspan=2 colspan="1" class="th1">发电水量</th>
+		<th rowspan=2 colspan="1" class="th1">末水位</th>
+		<th rowspan=2 colspan="1" class="th1">发电量</th>
+		<th colspan=2 class="th2">电网影响弃水</th>
+		<th colspan=2 class="th2">计划检修弃水</th>
+	</tr>
+	<tr>
+		<th>水量</th>
+		<th>电量</th>
+		<th>水量</th>
+		<th>电量</th>
+
+	</tr>
+	<tr>
+		<td class="w12">1455</td>
+		<td class="w12">1565</td>
+		<td class="w12">2564</td>
+		<td class="w12">1561</td>
+		<td class="w12">1565</td>
+		<td class="w12">15265</td>
+		<td class="w12">1565</td>
+		<td class="w12">156</td>
+
+	</tr>
+	<tr>
+		<th colspan="2">生态灌溉用水</th>
+		<th colspan="2">其他用水</th>
+		<th colspan="2" class="th2">设备故障弃水</th>
+		<th colspan="2" class="th2">泄洪弃水</th>
+
+	</tr>
+	<tr>
+		<th>水量</th>
+		<th>电量</th>
+		<th>水量</th>
+		<th>电量</th>
+		<th>水量</th>
+		<th>电量</th>
+		<th>水量</th>
+		<th>电量</th>
+	</tr>
+	<tr>
+		<td>1456</td>
+		<td>1561</td>
+		<td>156451</td>
+		<td>1564</td>
+		<td>97000</td>
+		<td>798</td>
+		<td>17500</td>
+		<td>156</td>
+
+	</tr>
+	<tr>
+		<!--<th colspan=3>本周预测及计划情况</th>-->
+		<!--<th colspan=3>下周预测及计划情况</th>-->
+		<!--<th colspan=2 rowspan="2">预报精度分析</th>-->
+
+		<th colspan="8" style="background-color:#fff;">
+			<div class="th">
+				<div class="inner-title">本周预测及计划情况</div>
+			</div>
+			<div class="th">
+				<div class="inner-title">下周预测及计划情况</div>
+			</div>
+			<div class="th">
+				<div class="inner-title">预报精度分析</div>
+			</div>
+		</th>
+
+	</tr>
+	<tr>
+		<th>来水量预测</th>
+		<th>计划末水位</th>
+		<th>计划电量</th>
+		<th>来水量预测</th>
+		<th>计划末水位</th>
+		<th>计划电量</th>
+	</tr>
+	<tr>
+		<td>15265</td>
+		<td>1565</td>
+		<td>156</td>
+		<td><input class="tbl-input" type="text"></td>
+		<td><input class="tbl-input" type="text"></td>
+		<td><input class="tbl-input" type="text"></td>
+		<td colspan=2><textarea class="tbl-textarea"></textarea></td>
+	</tr>
+	<tr>
+		<th colspan="2">计划电量完成率分析</th>
+		<th colspan="2">弃水原因及过程分析</th>
+		<th colspan="2">耗水率波动分析</th>
+	</tr>
+	<tr>
+		<td colspan="2"><textarea class="tbl-textarea"></textarea></td>
+		<td colspan="2"><textarea class="tbl-textarea"></textarea></td>
+		<td colspan="2"><textarea class="tbl-textarea"></textarea></td>
+
+	</tr>
+</table>
+</body>
+</html>

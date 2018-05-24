@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Basic ComboBox - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/default/easyui.css">
+	<script type="text/javascript" src="../../jquery-easyui-1.5/jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+</head>
+<body class="easyui-layout" fit="true">
+<!-- 高级搜索-->
+<div data-options="region:'north',hideCollapsedContent:false,split:true,height:'auto'" title="高级搜索" collapsed=false
+	 border='false' class='datagrid-toolbar'>
+	<form id="eomComplexSearch" name="complexSearch" class="easyui-form comm-form"
+		  data-options="novalidate:true">
+		<div class='comm_inlineb comm_pa5'>
+			<label>名称：</label>
+			<input class="easyui-textbox" type="text" name="orgName"/>
+		</div>
+		<div class='comm_inlineb comm_pa5'>
+			<label>组织编码：</label>
+			<input class="easyui-textbox" type="text" name="orgCode"/>
+		</div>
+		<div class='comm_inlineb comm_pa5'>
+			<label>组织简称：</label>
+			<input class="easyui-textbox" type="text" name="shortName"/>
+		</div>
+		<div class='comm_inlineb' style="margin-left:23px;">
+			<a href="javascript:void(0)" class="easyui-linkbutton c8" id="btnComplexSearch">
+				<i class="fa fa-search"></i> 搜索
+			</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton c8"
+			   onClick="formreset('#eomComplexSearch')"><i class="fa fa-rotate-left"></i> 重置</a>
+		</div>
+	</form>
+</div>
+<div data-options="region:'center',border:false,bodyCls:'panel-top-border'">
+	<div id='EOM_dg_toolbar' data-selector="eom-table-toolbar" class="operation-table-toolbar">
+		<div data-selector="shown-toolbar">
+			<span class='datagrid-btn-separator' style="height:20px; overflow:hidden;"></span>
+			<a id='linkAdd' class="easyui-linkbutton" plain='true'><i class="fa fa-plus-square"></i> 新增</a>
+			<a class="easyui-linkbutton" plain='true' id="linkExport"><i class="fa fa-download"></i> 导出</a>
+			<!--<a class="easyui-linkbutton" plain='true' id="extendAttr"><i class="fa fa-download"></i> 扩展属性</a>-->
+			<input type="text" class="easyui-searchbox" name="orgName"
+				   data-options="searcher:EOM.easySearch,prompt:'输入名称搜索'"/>
+		</div>
+		<!-- 默认隐藏的check后显示-->
+		<div class="hidden-toolbar" data-selector="hidden-toolbar">
+									   <span class="text">已选择
+										   <i class="num" data-selector="num">0</i>
+										   条记录
+									   </span>
+			<a href="javascript:;" class="easyui-linkbutton" plain='true' id="patchModifBtn"
+			   onclick="EOM.patchModify()"><i
+					class="fa fa-pencil-square"></i> 修改</a>
+			<a href="javascript:;" class="easyui-linkbutton" plain='true' id="patchDelBtn"
+			   onclick="EOM.patchDel('#businessOrgDataGrid')"><i
+					class="fa fa-minus-square"></i> 删除</a>
+		</div>
+
+	</div>
+
+	<table id="businessOrgDataGrid"></table>
+</div>
+</body>
+</html>

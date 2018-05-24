@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../demo.css">
+	<script type="text/javascript" src="../../jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+	<title></title>
+</head>
+<body>
+<label for="parentOrgName">上级组织:</label>
+<input style="width:300px;" id="parentOrgName" name="parentOrgName">
+<script>
+	var parentOrgNameInput = $("#parentOrgName");
+	var curStatus = 1;
+
+	//重设上级组织的内容
+	//parentId.textbox("setValue", uperOrgName);
+	setParentOrg(parentOrgNameInput);
+	function setParentOrg(component){
+		component.combobox({
+			url:"combobox_data2.json",
+			method:"get",
+			required:false
+		});
+	}
+</script>
+</body>
+</html>

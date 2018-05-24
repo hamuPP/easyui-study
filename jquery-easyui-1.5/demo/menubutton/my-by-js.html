@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Basic MenuButton - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../demo.css">
+	<script type="text/javascript" src="../../jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+</head>
+<body>
+	<a href='javascript:void(0)' id="alink"></a>
+	<div id="leftMenu" >
+		<div>Cut</div>
+		<div>Copy</div>
+		<div>Paste</div>
+		<div>Select All</div>
+	</div>
+	<div id="wrap"></div>
+	<script>
+		$(document).ready(function(){
+
+			var alink = $("#alink");
+			alink.menubutton({
+				iconCls: "icon-add",
+				menu: '#leftMenu',
+				text: "zengjia"
+			});
+
+			//用jS生成a标签并初始化menubutton
+			var leftMenuBtn = $("<a href='javascript:void(0)'></a>");
+			var wrap = $("#wrap");
+			//menubutton加入到表格头中
+			wrap.prepend(leftMenuBtn);
+			leftMenuBtn.menubutton({
+				iconCls: "icon-save",
+				menu: '#leftMenu',
+				text: "用js增加的"
+			});
+
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Basic ComboBox - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/default/easyui.css">
+	<script type="text/javascript" src="../../jquery-easyui-1.5/jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<button type="button" id="btn1">开启</button>
+	<button type="button" id="btn2">关闭</button>
+	<button type="button" id="btnVa">验证表格</button>
+	<form id="ff">
+		<input id="combobox1"/>
+	</form>
+	<script>
+		$.extend($.fn.validatebox.defaults.rules, {
+			comboxValidate : {
+				validator : function(value, param,missingMessage) {
+					if($('#'+param).combobox('getValue')!='' && $('#'+param).combobox('getValue')!=null){
+						return true;
+					}
+					return false;
+				},
+				message : "{1}"
+			}
+		});
+	</script>
+	<script>
+		var eleInput = $("#combobox1");
+
+		eleInput.combobox({
+			data:[
+				{
+					field:"",
+					value:"--请选择--"
+
+				},
+				{
+					field: 'orgType',
+					_field: 'orgType',
+					value: "类型"
+				},
+				{
+					field: 'curStatus',
+					_field: 'curStatus',
+					value: "状态"
+				}],
+			required:true,
+			validType:"comboxValidate['combobox1','选择状态']",
+			panelHeight:48,
+			valueField:'field',
+			textField:'value',
+			onSelect:function(record){
+				console.log("record")
+				console.log(record)
+				field = record._field;
+				if(field == "curStatus"){//点击状态时
+
+					console.log("zhuangt");
+					//关闭类型下拉菜单必填验证
+				}else{//点击类型
+					console.log("leixing");
+				}
+			},
+			onLoadSuccess:function(){
+				//设置默认值
+				//todo $(this).combobox('setValue', 'parentName');
+			}
+		});
+
+		//开启验证
+		$("#btn1").on("click",function(){
+			eleInput.combobox("enableValidation");
+		});
+
+		//关闭验证
+		$("#btn2").on("click",function(){
+			eleInput.combobox("disableValidation");
+		});
+
+		//显示表单验证结果
+		$("#btnVa").on("click",function(){
+			var eleForm = $("#ff");
+			console.log(eleForm.form("validate"));
+		});
+	</script>
+</body>
+</html>

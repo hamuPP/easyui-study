@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Basic TreeGrid - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../demo.css">
+	<script type="text/javascript" src="../../jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>Basic TreeGrid</h2>
+	<p>TreeGrid allows you to expand or collapse group rows.</p>
+	<div style="margin:20px 0;"></div>
+	<table id="treegrid" title="Folder Browser" class="easyui-treegrid" style="width:700px;height:250px"
+			data-options="
+				url: 'treegrid_data1.json',
+				method: 'get',
+				rownumbers: true,
+				idField: 'id',
+				treeField: 'name',
+				checkbox:true,
+				cascadeCheck:false,
+				onLoadSuccess:loadSuccessHandler
+			">
+		<thead>
+			<tr>
+				<th data-options="field:'name'" width="220">name</th>
+				<th data-options="field:'region'" width="220">region</th>
+				<th data-options="field:'size'" width="100" align="right">Size</th>
+				<th data-options="field:'date'" width="150">Modified Date</th>
+			</tr>
+		</thead>
+	</table>
+
+<button id="getRow">get Row 21</button>
+
+	<script>
+		$(function(){
+
+			var $tree = $("#treegrid");
+
+			$("#getRow").click(function(){
+				var findRow = $tree.treegrid("find",21)
+
+				console.log(findRow);
+
+				console.log($tree.treegrid("getData"));
+			});
+		})
+
+		function loadSuccessHandler(node,data){
+			console.log(node)
+			console.log(data);//
+		}
+	</script>
+</body>
+</html>

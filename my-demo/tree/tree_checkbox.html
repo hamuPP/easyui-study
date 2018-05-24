@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<style>
+		.fl{
+			float: left;
+		}
+		.dinine{
+			display: inline-block;
+		}
+		.table-box{
+			width: 400px;
+			display: inline-block;
+		}
+		#treeGrid{
+			width: 400px;
+		}
+	</style>
+</head>
+<body>
+<ul id="tree" class="dinine fl"></ul>
+<h4 class="dinine fl">右边表格</h4>
+<div class="table-box fl">
+	<table id="treeGrid" class="dinine"></table>
+</div>
+<script>
+	$(function(){
+		var tree = $("#tree");
+		$.get("tree_checkbox.json",function(param){
+			var _data = param.data;
+			initTree(tree,_data);
+			initTreeGrid();
+		});
+	});
+
+	function initTree(tree,treeData){
+		//以id为key重新排列treeData
+		var oTreeDataTemp = {};
+		$.each(treeData,function(){});
+		tree.tree({
+			data: treeData,
+			lines: true,
+			checkbox:true,
+			onCheck: function (thisNode) {
+//				console.log("===this node====");
+//				console.log(thisNode);
+				// 获取模糊不清的节点，及实心的父类节点
+				var parentNodes = tree.tree("getChecked", "indeterminate");
+//				console.log("===模糊不清的节点:parentNodes====");
+//				console.log(parentNodes);
+//				console.log(parentNodes.length);
+				// 获取确实勾选了的节点
+				var checkedNodes = tree.tree("getChecked");
+				console.log("===获取确实勾选了的节点 checkedNodes====");
+				console.log(checkedNodes);
+
+				//全部的节点：
+				var allNodes = parentNodes.concat(checkedNodes);
+				console.log("==全部的节点===")
+				console.log(allNodes);
+				var oNewAllNodes = {};
+				var aNewAllNodesRoots = [];//第一层的节点的ids
+				var aCheckedNodesHierarchy = [];
+				$.each(allNodes,function(idx,node){
+					if(node.resCode){
+						var oNode = {};
+						oNode.id = node.id;
+						oNode.text = node.text;
+						oNode.parentId = node.parentId;
+						oNewAllNodes[node.id] = oNode;
+						oNewAllNodes[node.id].children = [];
+						console.log(node.parentId);
+						if(!node.parentId){
+							aNewAllNodesRoots.push(node.id);
+						}
+					}
+				});
+				$.each(oNewAllNodes,function(idx,node){
+					if(node.parentId){
+						oNewAllNodes[node.parentId].children.push(node);
+					}
+				});
+
+				$.each(aNewAllNodesRoots,function(idx,nodeId){
+					aCheckedNodesHierarchy.push(oNewAllNodes[nodeId]);
+				});
+
+				console.log(aCheckedNodesHierarchy);
+
+
+				$('#treeGrid').treegrid({data:aCheckedNodesHierarchy});
+
+			}
+		});
+	}
+
+	function initTreeGrid(){
+		$('#treeGrid').treegrid({
+			idField:'id',
+			treeField:'text',
+			rownumbers:true,
+			columns:[[
+				{title:'text',field:'text',width:180},
+				{field:'id',title:'id',width:80},
+				{field:'parentId',title:'parentId',width:60,align:'right'},
+				{field:'appId',title:'appId',width:80}
+			]]
+		});
+	}
+</script>
+</body>
+</html>

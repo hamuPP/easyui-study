@@ -1,0 +1,269 @@
+{
+	"meta" : {
+		"message" : "成功",
+		"code" : 1
+	},
+	"data" :[{
+		"id":1,
+		"text":"唯一最大父节点",
+		"children": [ {
+			"id" : 225,
+			"resType" : 1,
+			"text" : "考勤管理",
+			"resCode" : "kqgl",
+			"url" : "",
+			"info" : "",
+			"appId" : 3,
+			"children" : [ {
+				"id" : 227,
+				"parentId" : 225,
+				"resType" : 1,
+				"text" : "考勤列表",
+				"resCode" : "kqlb",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 228,
+				"parentId" : 225,
+				"resType" : 1,
+				"text" : "考勤申诉",
+				"resCode" : "kqss",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 229,
+				"parentId" : 225,
+				"resType" : 1,
+				"text" : "原始记录",
+				"resCode" : "ysjl",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 230,
+				"parentId" : 225,
+				"resType" : 1,
+				"text" : "请假管理",
+				"resCode" : "qjgl",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 231,
+				"parentId" : 225,
+				"resType" : 1,
+				"text" : "出差管理",
+				"resCode" : "ccgl",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 313,
+				"parentId" : 225,
+				"resType" : 1,
+				"text" : "考勤加班",
+				"resCode" : "kqjb",
+				"appId" : 3
+			} ]
+		}, {
+			"id" : 232,
+			"resType" : 1,
+			"text" : "考勤分析",
+			"resCode" : "kqfx",
+			"url" : "",
+			"info" : "",
+			"appId" : 3,
+			"children" : [ {
+				"id" : 233,
+				"parentId" : 232,
+				"resType" : 1,
+				"text" : "考勤个人统计",
+				"resCode" : "kqgrtj",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 234,
+				"parentId" : 232,
+				"resType" : 1,
+				"text" : "员工工时管理 ",
+				"resCode" : "yggsgl",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 235,
+				"parentId" : 232,
+				"resType" : 1,
+				"text" : "考勤部门统计",
+				"resCode" : "kqbmtj",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 236,
+				"parentId" : 232,
+				"resType" : 1,
+				"text" : "部门工时管理",
+				"resCode" : "bmgsgl",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			} ]
+		}, {
+			"id" : 237,
+			"resType" : 1,
+			"text" : "证照管理",
+			"resCode" : "zzgl",
+			"url" : "",
+			"info" : "",
+			"appId" : 3,
+			"children" : [ {
+				"id" : 239,
+				"parentId" : 237,
+				"resType" : 1,
+				"text" : "领证管理",
+				"resCode" : "lzgl",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 240,
+				"parentId" : 237,
+				"resType" : 1,
+				"text" : "办证管理",
+				"resCode" : "bzgl",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			} ]
+		}, {
+			"id" : 241,
+			"resType" : 1,
+			"text" : "服务管理",
+			"resCode" : "fwgl",
+			"url" : "",
+			"info" : "",
+			"appId" : 3,
+			"children" : [ {
+				"id" : 242,
+				"parentId" : 241,
+				"resType" : 1,
+				"text" : "签约管理",
+				"resCode" : "qygl",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 243,
+				"parentId" : 241,
+				"resType" : 1,
+				"text" : "签约保洁",
+				"resCode" : "qybj",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 244,
+				"parentId" : 241,
+				"resType" : 1,
+				"text" : "服务项管理",
+				"resCode" : "fwxgl",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 245,
+				"parentId" : 241,
+				"resType" : 1,
+				"text" : "家庭保洁",
+				"resCode" : "jtbj",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 246,
+				"parentId" : 241,
+				"resType" : 1,
+				"text" : "服务申请报表",
+				"resCode" : "fwsqbb",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			}, {
+				"id" : 247,
+				"parentId" : 241,
+				"resType" : 1,
+				"text" : "物业维修",
+				"resCode" : "wywx",
+				"url" : "",
+				"info" : "",
+				"appId" : 3
+			} ]
+		}, {
+			"id" : 248,
+			"resType" : 1,
+			"text" : "车辆管理",
+			"resCode" : "clgl",
+			"url" : "",
+			"info" : "",
+			"appId" : 3,
+			"children" : [ {
+				"id" : 249,
+				"parentId" : 248,
+				"resType" : 1,
+				"text" : "车辆管理(1",
+				"resCode" : "clglist",
+				"url" : "",
+				"info" : "",
+				"appId" : 3,
+				"children" : [ {
+					"id" : 2498,
+					"parentId" : 249,
+					"resType" : 1,
+					"text" : "车辆管理A",
+					"resCode" : "clglist",
+					"url" : "",
+					"info" : "",
+					"appId" : 3
+				},{
+					"id" : 2499,
+					"parentId" : 249,
+					"resType" : 1,
+					"text" : "车辆管理B",
+					"resCode" : "clglist",
+					"url" : "",
+					"info" : "",
+					"appId" : 3,
+					"children" : [ {
+						"id" : 24986,
+						"parentId" : 2499,
+						"resType" : 1,
+						"text" : "车辆管理AA",
+						"resCode" : "clglist",
+						"url" : "",
+						"info" : "",
+						"appId" : 3
+					},{
+						"id" : 24997,
+						"parentId" : 2499,
+						"resType" : 1,
+						"text" : "车辆管理BB",
+						"resCode" : "clglist",
+						"url" : "",
+						"info" : "",
+						"appId" : 3
+					} ]
+				} ]
+			} ]
+		}, {
+			"id" : 317,
+			"resType" : 1,
+			"text" : "考勤测试",
+			"resCode" : "kqcs",
+			"appId" : 3
+		} ]
+	}]
+}

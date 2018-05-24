@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用JS创建一个可拖拽的元素</title>
+	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../demo.css">
+	<script type="text/javascript" src="../../jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+	<style>
+		.mydiv{
+			width: 100px;
+			height: 100px;
+			background: green;
+		}
+	</style>
+</head>
+<body>
+	<pre>用JS创建一个可拖拽的元素</pre>
+	<div class="drag-item mydiv">我的div</div>
+
+	<script>
+		$('.drag-item').draggable({
+			revert: true,
+			proxy: 'clone'
+		})
+	</script>
+</body>
+</html>

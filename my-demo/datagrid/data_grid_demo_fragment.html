@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<title></title>
+</head>
+<body class="easyui-layout" data-options="fit:true">
+
+	<div id="listLayout" class="easyui-layout" data-options="fit:true">
+		<div data-options="region:'west',title:'企业组织',split:true" style="width:150px;">
+			<ul id="listNavTree" class="easyui-tree"
+				data-options="url:'../../../localData/businessOrganization.json'">
+			</ul>
+		</div>
+		<div id="listCenter" data-options="region:'center'">
+
+			<header id="centerHeader">企业组织管理</header>
+
+			<div id="centerContent" class="easyui-panel"
+				 data-options="fit:true,href:'datagridFrag.html'">
+			</div>
+
+		</div>
+	</div>
+	<script>
+
+		var centerContent = $("#centerContent");
+
+		//初始默认加载企业组织管理板块
+		centerContent.panel({
+			onLoad:function(){
+				console.log('loaded successfully');
+
+				$('#listDataGrid').datagrid({
+					columns:[[
+						{field:'codeXXX',title:'CodeXXX'},
+						{field:'name',title:'Name'},
+						{field:'price',title:'Price'}
+					]]
+				});
+
+				// loadPageDatagrid("#listDataGrid", sTargetDatagridColNameData);
+			}
+		});
+	</script>
+
+</body>
+</html>

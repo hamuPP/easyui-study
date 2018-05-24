@@ -1,0 +1,185 @@
+[
+	{
+		"id": 1,
+		"text": "身份管理",
+		"state": "open",
+		"children": [
+			{
+				"id":11,
+				"text": "企业组织管理",
+				"attributes":{
+					"url":"shenfenguanli/qiyezuzhi.html"
+				}
+			},
+			{
+				"id":12,
+				"text": "企业账号管理",
+				"attributes":{
+					"url":"shenfenguanli/qiyezhanghao.html"
+				}
+			},
+			{
+				"id":13,
+				"text": "应用注册管理",
+				"attributes":{
+					"url":"shenfenguanli/yingyongzhuce.html"
+				}
+			}
+		]
+	},
+	{
+		"id": 2,
+		"text": "授权管理",
+		"state": "closed",
+		"children": [
+			{
+				"id":21,
+				"text": "权限管理",
+				"state": "closed",
+				"children": [
+					{
+						"id":211,
+						"text": "业务账号管理",
+						"attributes":{
+							"url":"shenfenguanli/yingyongzhuce.html"
+						}
+					},
+					{
+						"id":212,
+						"text": "身份授权管理",
+						"attributes":{
+							"url":"shenfenguanli/yingyongzhuce.html"
+						}
+					}
+				]
+			},
+			{
+				"id":22,
+				"text": "资源管理",
+				"state": "closed",
+				"children": [
+					{
+						"id":221,
+						"text": "业务角色管理",
+						"attributes":{
+							"url":"shenfenguanli/yingyongzhuce.html"
+						}
+					},
+					{
+						"id":222,
+						"text": "系统资源管理",
+						"attributes":{
+							"url":"shenfenguanli/yingyongzhuce.html"
+						}
+					},
+					{
+						"id":223,
+						"text": "业务组织管理",
+						"attributes":{
+							"url":"shenfenguanli/yingyongzhuce.html"
+						}
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": 3,
+		"text": "监控管理",
+		"state": "closed",
+		"children": [
+			{
+				"id":31,
+				"text": "身份仪表盘",
+				"attributes":{
+					"url":"shenfenguanli/yingyongzhuce.html"
+				}
+			},
+			{
+				"id":32,
+				"text": "权限仪表盘",
+				"attributes":{
+					"url":"shenfenguanli/yingyongzhuce.html"
+				}
+			},
+			{
+				"id":33,
+				"text": "用户登录分析",
+				"attributes":{
+					"url":"shenfenguanli/yingyongzhuce.html"
+				}
+			},
+			{
+				"id":33,
+				"text": "操作分析",
+				"attributes":{
+					"url":"shenfenguanli/yingyongzhuce.html"
+				}
+			},
+			{
+				"id":33,
+				"text": "服务接口监控",
+				"attributes":{
+					"url":"shenfenguanli/yingyongzhuce.html"
+				}
+			}
+		]
+	},
+	{
+		"id": 4,
+		"text": "配置管理",
+		"state": "closed",
+		"children": [
+			{
+				"id": 41,
+				"text": "基础配置",
+				"state": "closed",
+				"children":[
+					{"id": 411,
+						"text": "插件仓库管理",
+						"attributes":{
+							"url":"shenfenguanli/yingyongzhuce.html"
+						}
+					},
+					{"id": 412,
+						"text": "配置管理",
+						"attributes":{
+							"url":"shenfenguanli/yingyongzhuce.html"
+						}
+					},
+					{"id": 413,
+						"text": "配置管理",
+						"attributes":{
+							"url":"shenfenguanli/yingyongzhuce.html"
+						}
+					}
+				]
+			},
+			{
+				"id": 42,
+				"text": "认证配置",
+				"state": "closed",
+				"children":[
+					{"id": 421,
+						"text": "密码策略配置",
+						"attributes":{
+							"url":"shenfenguanli/yingyongzhuce.html"
+						}
+					},
+					{"id": 422,
+						"text": "认证源配置",
+						"attributes":{
+							"url":"shenfenguanli/yingyongzhuce.html"
+						}
+					},
+					{"id": 423,
+						"text": "认证策略配置",
+						"attributes":{
+							"url":"shenfenguanli/yingyongzhuce.html"
+						}
+					}
+				]
+			}
+		]
+	}
+]

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<script src="mytest.js"></script>
+	<title></title>
+</head>
+<body>
+
+	<table id="listDataGrid">
+
+	</table>
+	<table id="dg2"></table>
+	<script>
+
+		var colWidth = getColWidth(3, "#listCenter");
+		console.log(colWidth);
+
+		$('#listDataGrid').datagrid({
+			url:"datagrid_data1.json",
+			rownumbers:true,
+			pagination:true,
+			pageNumber:0,
+			columns:[[
+				{field:'_ck',checkbox:true,title:'productid',width:colWidth},
+				{field:'productid',title:'productid',width:colWidth},
+				{field:'productname',title:'productname',width:colWidth},
+				{field:'unitcost',title:'unitcost',width:colWidth}
+			]]
+		});
+
+//		$('#dg2').datagrid({
+//			url:"datagrid_data1.json",
+//			rownumbers:true,
+//			pagination:true,
+//			columns:[[
+//				{field:'productid',title:'productid',width:colWidth},
+//				{field:'productname',title:'productname',width:colWidth},
+//				{field:'unitcost',title:'unitcost',width:colWidth}
+//			]]
+//		});
+
+
+		/**
+		 * 获得父元素的子元素的平分宽度
+		 * @param {Number} columnSum 子元素（列）数量
+		 * @param {String} parentID 父元素id，记得带上#
+		 * @returns {number} 平均宽度
+		 */
+		function getColWidth(columnSum, parentID){
+			var width = Math.floor($(parentID).width() / columnSum);
+			return width;
+		}
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+	<title></title>
+</head>
+<body>
+
+<table id="dg"></table>
+<button id="loadData1"> load data1</button>
+<button id="changeOptsUrl_load_data1">changeOptsUrl_load_data1</button>
+<button id="init_data3">init_data3</button>
+<button id="getCheckedNodes">GETchECKED</button>
+<button id="GETdataset">GETdataset</button>
+<script>
+	$.utils= {
+		//递归树
+		recursion: function (item, cb, ctx) {
+			if (!ctx) {
+				ctx = this;
+			}
+			if (!cb) {
+				cb = function () {
+				}
+			}
+			if (item instanceof Array) {
+				for (var i = 0, len = item.length; i < len; i++) {
+					var it = item[i];
+					cb.call(ctx, it);
+					if (it.children && it.children.length > 0) {
+						$.utils.recursion(it.children, cb, ctx);
+					}
+				}
+			} else {
+				cb.call(ctx, item);
+				if (item.children && item.children.length > 0) {
+					$.utils.recursion(item.children, cb, ctx);
+				}
+			}
+		}
+	};
+</script>
+<script>
+
+	var needFlag = false;//需要在Loadfilter内处理checkbox
+
+	$('#dg').treegrid({
+		url:"data2.json",
+		rownumbers:true,
+		pagination:true,
+		idField:"id",
+		treeField:"name",
+		fitColumns:true,
+		checkbox:true,
+		cache:false,
+		columns:[[
+//			{field:'_ck',checkbox:true,title:'productid',width:100},
+			{field:'name',title:'name',width:100},
+			{field:'productname',title:'productname',width:100},
+			{field:'unitcost',title:'unitcost',width:100}
+		]]
+//		loadFilter:function(data,parentId){
+//			console.log("===loadFilter handler==")
+//			console.log(needFlag)
+//
+//			if(needFlag){
+//				$.utils.recursion(data,function(item){
+//					item.checked = false;
+//					item.checkState = "unchecked"
+//				})
+//				needFlag = false;
+//			}
+//			console.log("filtered data");
+//			console.log(data);
+//			return data;
+//		}
+	});
+
+	$("#loadData1").click(function(){
+		needFlag = true;
+		$.get("data4.json", {"fcc":99},function(param){
+//			$('#dg').treegrid("remove", 1);
+			$('#dg').data("treegrid").checkedRows = [];
+			$('#dg').treegrid("loadData", param);
+		});
+	});
+
+	/**
+	 * 结论：
+	 * 当treegrid有勾选节点时，使用loadData加载数据，不论是否为同一接口，加载完的数据，都会带上checkbox勾选状态，
+	 * 且导致无法对这些节点进行勾选操作
+	 */
+
+	$("#changeOptsUrl_load_data1").click(function(){
+		$('#dg').treegrid("options").url = "data1.json";
+
+		$('#dg').treegrid("load",  {"fcc":77});
+	});
+	/**
+	 * 结论：
+	 * 同上
+	 */
+
+	$("#init_data3").click(function(){
+		$('#dg').treegrid({
+			url:"data3.json",
+			rownumbers:true,
+			pagination:true,
+			idField:"id",
+			treeField:"name",
+			fitColumns:true,
+			checkbox:true,
+			columns:[[
+//			{field:'_ck',checkbox:true,title:'productid',width:100},
+				{field:'name',title:'name',width:100},
+				{field:'productname',title:'productname',width:100},
+				{field:'unitcost',title:'unitcost',width:100}
+			]]
+		});
+	});
+
+
+	//尝试在loadfilter内，处理checkbox勾选效果
+	//结果：无效
+
+
+	$("#getCheckedNodes").click(function () {
+		var ckedNodes = $('#dg').treegrid("getCheckedNodes")
+		console.log(ckedNodes)
+	})
+
+	$("#GETdataset").click(function () {
+		var data = $('#dg').data("treegrid")
+		var ckedRows = data.checkedRows;
+		console.log(data);
+	});
+</script>
+
+</body>
+</html>

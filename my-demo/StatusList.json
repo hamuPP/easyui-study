@@ -1,0 +1,22 @@
+[
+	{
+		"StatusId":"id-AAA",
+		"StatusText":"AAA"
+	},
+	{
+		"StatusId":"id-BBB",
+		"StatusText":"BBB"
+	},
+	{
+		"StatusId":"id-CCC",
+		"StatusText":"CCC"
+	},
+	{
+		"StatusId":"id-DDD",
+		"StatusText":"DDD"
+	},
+	{
+		"StatusId":"id-EEE",
+		"StatusText":"EEE"
+	}
+]

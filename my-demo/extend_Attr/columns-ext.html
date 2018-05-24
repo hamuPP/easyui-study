@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Columns Extension for DataGrid - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../jquery-easyui-1.5/themes/icon.css">
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+    <!--<script type="text/javascript" src="../../jquery-easyui-1.5/columns-ext/columns-ext.js"></script>-->
+</head>
+<body>
+    <h2>Moving Columns</h2>
+    <div style="margin:20px 0;"></div>
+	<div id='dg_toolbar' data-selector="eam-table-toolbar" class="operation-table-toolbar">
+		<div data-selector="shown-toolbar">
+			<span class='datagrid-btn-separator' style="height:20px; overflow:hidden;"></span>
+			<a id='linkAdd' class="easyui-linkbutton" plain='true'><i class="fa fa-plus-square"></i> 新增</a>
+			<a class="easyui-linkbutton" plain='true' id="linkExport"><i class="fa fa-download"></i> 导出</a>
+			<input type="text" class="easyui-searchbox" name="account"
+				   data-options="searcher:easySearch,prompt:'输入账号名称搜索'"/>
+		</div>
+		<!-- 默认隐藏的check后显示-->
+		<div class="hidden-toolbar" data-selector="hidden-toolbar">
+					   <span class="text">已选择
+						   <i class="num" data-selector="num">0</i>
+						   条记录
+					   </span>
+			<a href="javascript:;" class="easyui-linkbutton" plain='true' ><i
+					class="fa fa-pencil-square"></i> 修改</a>
+			<a href="javascript:;" class="easyui-linkbutton" plain='true' ><i
+					class="fa fa-minus-square"></i> 删除</a>
+			<a href="javascript:;" class="easyui-linkbutton" plain='true' ><i
+					class="fa fa-minus-square"></i> 重置密码</a>
+			<a href="javascript:;" class="easyui-linkbutton" plain='true' ><i
+					class="fa fa-minus-square"></i> 开通应用</a>
+		</div>
+	</div>
+    <table id="dg" style="width:700px;height:250px">
+        <thead>
+            <tr>
+				<th data-options="field:'_ck',checkbox:true,width:100">Item ID</th>
+                <th data-options="field:'itemid',width:100">Item ID</th>
+                <th data-options="field:'productid',width:120">Product</th>
+                <th data-options="field:'listprice',width:90,align:'right'">List Price</th>
+                <th data-options="field:'unitcost',width:90,align:'right'">Unit Cost</th>
+                <th data-options="field:'attr1',width:250">Attribute</th>
+                <th data-options="field:'status',width:60,align:'center'">Status</th>
+            </tr>
+        </thead>
+    </table>
+</body>
+<script src="common.js"></script>
+<script src="tt.js"></script>
+<script type="text/javascript">
+	var data = {"total":28,"rows":[
+		{"productid":"FI-SW-01","productname":"Koi","unitcost":10.00,"status":"P","listprice":36.50,"attr1":"Large","itemid":"EST-1"},
+		{"productid":"K9-DL-01","productname":"Dalmation","unitcost":12.00,"status":"P","listprice":18.50,"attr1":"Spotted Adult Female","itemid":"EST-10"},
+		{"productid":"RP-SN-01","productname":"Rattlesnake","unitcost":12.00,"status":"P","listprice":38.50,"attr1":"Venomless","itemid":"EST-11"},
+		{"productid":"RP-SN-01","productname":"Rattlesnake","unitcost":12.00,"status":"P","listprice":26.50,"attr1":"Rattleless","itemid":"EST-12"},
+		{"productid":"RP-LI-02","productname":"Iguana","unitcost":12.00,"status":"P","listprice":35.50,"attr1":"Green Adult","itemid":"EST-13"},
+		{"productid":"FL-DSH-01","productname":"Manx","unitcost":12.00,"status":"P","listprice":158.50,"attr1":"Tailless","itemid":"EST-14"},
+		{"productid":"FL-DSH-01","productname":"Manx","unitcost":12.00,"status":"P","listprice":83.50,"attr1":"With tail","itemid":"EST-15"},
+		{"productid":"FL-DLH-02","productname":"Persian","unitcost":12.00,"status":"P","listprice":23.50,"attr1":"Adult Female","itemid":"EST-16"},
+		{"productid":"FL-DLH-02","productname":"Persian","unitcost":12.00,"status":"P","listprice":89.50,"attr1":"Adult Male","itemid":"EST-17"},
+		{"productid":"AV-CB-01","productname":"Amazon Parrot","unitcost":92.00,"status":"P","listprice":63.50,"attr1":"Adult Male","itemid":"EST-18"}
+	]}
+
+	//初始化toolbar
+	var initTblToolbar = function(dgComp){
+		var _toolBar = $("div[data-selector='eam-table-toolbar']");
+		var _shownComponent = _toolBar.find("div[data-selector='shown-toolbar']");
+		var _hiddenComponent = _toolBar.find("div[data-selector='hidden-toolbar']");
+		initTableOperationToolbar({
+			tableControl: dgComp,
+			shownToorbarComp: _shownComponent,
+			hiddenToorbarComp: _hiddenComponent,
+			autoCount:true
+		});
+	};
+
+	var easySearch = function(){};
+
+	$(function(){
+		var dg = $('#dg');
+		dg.datagridEx({
+			rownumbers: true,
+			data: data,
+			pagination:true,
+			extendAttr:true,
+			toolbar:"#dg_toolbar"
+		});
+
+
+		//初始化toolbar
+		initTblToolbar(dg);
+	})
+
+</script>
+</html>

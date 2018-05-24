@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/default/easyui.css"/>
+	<link rel="stylesheet" href="../../jquery-easyui-1.5/themes/icon.css"/>
+	<script src="../../jquery-easyui-1.5/jquery.min.js"></script>
+	<script src="../../jquery-easyui-1.5/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<ul id="tree"></ul>
+	<button id="btnExpand">expand</button>
+<script>
+
+	$(function(){
+		$("#tree").tree({
+			url:"../../jquery-easyui-1.5/demo/tree/tree_data1.json",
+			method:"GET",
+      onSelect:function(node){
+			  console.log(node)
+      }
+//			loadFilter:function(data){
+//				return [];
+//			}
+		});
+
+		$("#btnExpand").click(function(){
+			console.log("clickc");
+			var node = $("#tree").tree("find",11);
+
+			$("#tree").tree("expand", node.target)
+		});
+	});
+
+	/**
+	 * 刷新有点击过某个节点的树
+	 * @param opts
+	 * @param opts.$tree 树控件
+	 * @param opts.clickedNodesIds {Array} 点击的节点的id
+	 */
+	function relodClickedTree(opts){
+		console.log(opts);
+		var _$tree = opts.$tree;
+		var _clickedNodesIds = opts.clickedNodesIds;
+		_$tree.tree("loadData",items);
+		if(_clickedNodesIds.length > 0){
+			$.each(_clickedNodesIds,function(i,v){
+				console.log(v);
+				var targetNode = _$tree.tree("find", v);
+				console.log(targetNode);
+				//展开被点击的节点
+				_$tree.tree("expand", targetNode);
+			});
+		}
+	}
+</script>
+</body>
+</html>
